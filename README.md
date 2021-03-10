@@ -4,6 +4,13 @@ The serve return is the most important defensive shot in tennis. Few statistical
 
 ![](djokovic_return_impact.png)
 
+
+## Sponsoring Organization
+
+This project is sponsored by [Zelus Analytics](https://zelusanalytics.com/), a company dedicated to building world-leading sports intelligence platforms. The sponsoring mentor is [Stephanie Kovalchik](https://on-the-t.com).
+
+![](zelus-logo.png)
+
 ### DEFINITIONS
 
 The `serve return` is the shot the receiver hits off of their opponent's serve. The `return impact position` is the (x, y) position of the ball when the receiving player makes contact with the ball on the serve return. The (x, y) coordinate is length and lateral position with respect to the court coordinate system. These coordiantes are in meters where (0, 0) is the center of the net.
