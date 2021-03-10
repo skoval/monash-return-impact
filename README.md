@@ -10,7 +10,7 @@ The `serve return` is the shot the receiver hits off of their opponent's serve. 
 
 The image below describes the relevant dimensions of the tennis court in terms of the court coordinate system.
 
-![](tennis_court.gif)
+![](tennis_court.gif =100x)
 
 ### DATA
 
