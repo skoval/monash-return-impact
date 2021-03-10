@@ -1,4 +1,4 @@
-# RETURN IMPACT
+# MAKING AN IMPACT: A model of return impact in professional tennis
 
 The serve return is the most important defensive shot in tennis. Few statistical studies have examined return impact, largely because detailed data about player position at return impact has generally not been available. Using recently released tracking data summaries on the ATP Tour website of the 2D position of the ball at the time of return impact, this project will develop a generative model for the return impact position of professional male players.
 
