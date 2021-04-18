@@ -56,14 +56,37 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   output$distPlot <- renderPlot({
+    
+    courtcolor <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtcolor <- '#d16036'
+    }
+    else if(input$surface == 'Grass'){
+      courtcolor <- '#357d2f'
+    }
+    else {
+      courtcolor <- '#68b0f2'
+    }
+    
+    courtinside <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtinside <- '#a3350a'
+    }
+    else if(input$surface == 'Grass'){
+      courtinside <- '#057517'
+    }
+    else {
+      courtinside <- '#1263b0'
+    }
+    
 
     pivit %>%
       filter(player == input$player,
              surface == input$surface,
              Servetype == input$serve) %>%
       ggplot(aes(y = Y, x = X)) + 
-      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill="#0a8d45") +
-      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill="lightgrey") +
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
       geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +           
@@ -78,13 +101,36 @@ server <- function(input, output) {
   })
   
   output$densityplot <- renderPlot({
+    
+    courtcolor <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtcolor <- '#d16036'
+    }
+    else if(input$surface == 'Grass'){
+      courtcolor <- '#357d2f'
+    }
+    else {
+      courtcolor <- '#68b0f2'
+    }
+    
+    courtinside <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtinside <- '#a3350a'
+    }
+    else if(input$surface == 'Grass'){
+      courtinside <- '#057517'
+    }
+    else {
+      courtinside <- '#1263b0'
+    }
     pivit %>%
       filter(player == input$player,
              surface == input$surface,
              Servetype == input$serve) %>%
       ggplot(aes(y = Y, x = X)) + 
-      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill="#0a8d45") +
-      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill="lightgrey") +
+      xlim(-10,10) +
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
       geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +     
