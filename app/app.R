@@ -62,7 +62,7 @@ server <- function(input, output) {
       courtcolor <- '#d16036'
     }
     else if(input$surface == 'Grass'){
-      courtcolor <- '#357d2f'
+      courtcolor <- '#00a30e'
     }
     else {
       courtcolor <- '#68b0f2'
@@ -107,7 +107,7 @@ server <- function(input, output) {
       courtcolor <- '#d16036'
     }
     else if(input$surface == 'Grass'){
-      courtcolor <- '#357d2f'
+      courtcolor <- '#00a30e'
     }
     else {
       courtcolor <- '#68b0f2'
