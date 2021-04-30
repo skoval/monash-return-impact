@@ -50,12 +50,18 @@ library(rattle)
 library(jpeg)
 library(png)
 library(ggExtra)
+library(cluster)
+library(NbClust)
+library(flexclust)
+library(fMultivar)
+library(rattle)
+library(Rmixmod)
 registerDoMC(cores=4)
 ```
 
 
 ```{r read_data}
-position <- readRDS("/monash-return-impact/data/position.rds")  
+positions <- readRDS("/monash-return-impact/data/position.rds")  
 ```
 
 
@@ -63,8 +69,9 @@ position <- readRDS("/monash-return-impact/data/position.rds")
 ```{r}
 pivit <- position %>% pivot_longer(AdT:DeuceWide,
                                     names_to = "Servetype", 
-                                   values_to = "values") %>%
-  filter(values == 1)  %>% 
+                                   values_to = "values")
+posit <- pivit %>% 
+  dplyr::filter(values == 1)  %>% 
   dplyr::select(-values)
 ```
 
@@ -77,99 +84,9 @@ summarydata
 
 
 ```{r}
-Khachanov <- position %>%
-  filter(player == "K. Khachanov")
-
-my_image <- readJPEG("image/Tennis-Co.jpg")
- 
-g <- rasterGrob(my_image, width=unit(1,"npc"), height=unit(1,"npc"), interpolate = FALSE)
-
-ggplot(Khachanov, 
-       aes(x=X, y=Y)) +
-  annotation_custom(g, xmin= min(Khachanov$X), 
-                    xmax=max(Khachanov$X), 
-                   ymin=-Inf, ymax=Inf) + 
-  geom_point() +
-  xlim(0, -23.8)
-  
-```
-
-# picture downlod from https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vippng.com%2Fpreview%2FiRhbbwm_tennis-court-dimensions-tennis-baseline-service-line%2F&psig=AOvVaw1RahK-5pNjIt2CZJArBVbB&ust=1617659592672000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOigs-DJ5e8CFQAAAAAdAAAAABAK
-
-# https://www.sportslover.info/how-long-is-a-tennis-court/
-
-
-```{r}
-fit <- glm(
-  serve ~ .,
-  data = position,
-  family = "binomial"
-)
-
-# Summarize regression model
-fit %>% summary() # Standard Output
-fit %>% tidy()    # Tidy Output
-```
-
-
-## eXtreme Gradient Boosting
-
-```{r ctrl_ex}
-## Create a control object
-ctrl4 <-
-  trainControl(method = "cv",
-               number = 10,
-               selectionFunction = "best")
-
-modelLookup("xgbTree")
-```
-
-```{r grid_ex}
-## Grid Search
-grid4 <- expand.grid(
-  nrounds = 40,
-  max_depth = c(4,5,6,7,8),
-  eta =  c(0.1,0.2,0.3,0.4,0.5),
-  gamma = 0.01,
-  colsample_bytree = 1,
-  min_child_weight = 1,
-  subsample = c(0.5, 1)
-)
-```
-
-
-```{r ex_mod}
-## Build XGBoost
-set.seed(1234)
-xgb.mod <-
-  caret::train(
-    serve ~ .,
-    data = position,
-    method = "xgbTree",
-    metric = "Kappa",
-    trControl = ctrl4,
-    tuneGrid = grid4
-  )
-xgb.mod
-```
-
-
-```{r}
-p <-positions %>%
-  filter(match_id == "2019/404/MS037", player == "N. Basilashvili") %>%
-  ggplot(aes(y = Y, x = X)) + 
-  annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill="#0a8d45") +
-  annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill="lightgrey") +
-  geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
-  geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
-               lineend = 'round') +           
-  geom_point(size = 3, aes(col = factor(serve, lab = c("FIRST", "SECOND"))), alpha = 0.5) +
-  scale_colour_manual("Serve", values = c("orange", "#f572b9")) +
-  theme_bw() +
-  coord_flip() + 
-  theme(legend.position = "top") +
-  scale_x_continuous("Depth (meters from net)", n. = 8) +
-  scale_y_continuous("Lateral position (meters from center)", n. = 8)
+Khachanov <- posit %>%
+  dplyr::filter(player == "K. Khachanov") %>%
+  dplyr::select(X, Y, Ad, Clay, Grass)
 ```
 
 # Marginal Distribution
@@ -178,5 +95,165 @@ p <-positions %>%
 p1 <- ggMarginal(p, type="histogram")
  p1
 ```
+
+
+
+```{r}
+model <- mixmodCluster(positions[,c("X","Y")], 5)
+model
+```
+
+
+```{r}
+fit <- mixmodCluster(Khachanov, 
+                     nbCluster = 2:8,
+       criterion = c("BIC", "ICL", "NEC"), 
+       models = mixmodGaussianModel(), 
+       strategy = strategy1)
+
+```
+
+```{r}
+kmod <- mixmodCluster( positions %>% filter(player == "Khachanov")[,c("X","Y")], 5) %>%
+                plot()
+kmod
+
+
+```
+
+
+```{r}
+plot(kmod)
+```
+
+
+
+
+```{r}
+model <- mixmodCluster(positions[,c("X","Y")], 8)
+model
+```
+
+
+```{r}
+summary(model)
+```
+
+```{r}
+plot(model)
+```
+
+```{r}
+model2 <- mixmodCluster(positions[,c("X","Y")], 2)
+model2
+```
+
+
+```{r}
+plot(model2)
+```
+
+
+```{r}
+model3 <- mixmodCluster(positions[,c("X","Y")], 3)
+model3
+```
+
+
+```{r}
+plot(model3)
+```
+
+```{r}
+model4 <- mixmodCluster(positions[,c("X","Y")], 4)
+model4
+```
+
+
+```{r}
+plot(model4)
+```
+
+```{r}
+model5 <- mixmodCluster(positions[,c("X","Y")], 5
+                        )
+model5
+```
+
+
+```{r}
+plot(model5)
+```
+
+```{r}
+model["results"]
+```
+
+
+```{r}
+model["bestResult"]
+```
+
+
+```{r}
+model2["results"]
+```
+
+
+```{r}
+model2["bestResult"]
+```
+
+```{r}
+model3["results"]
+```
+
+
+
+```{r}
+model3["bestResult"]
+```
+
+```{r}
+model4["results"]
+```
+
+
+
+
+```{r}
+model4["bestResult"]
+```
+
+
+```{r}
+model5["results"]
+```
+
+
+
+```{r}
+model5["bestResult"]
+```
+
+
+
+```{r}
+summary(model)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
