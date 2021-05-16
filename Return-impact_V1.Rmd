@@ -56,6 +56,7 @@ library(flexclust)
 library(fMultivar)
 library(rattle)
 library(Rmixmod)
+library(mclust)
 registerDoMC(cores=4)
 ```
 
@@ -65,182 +66,232 @@ positions <- readRDS("/monash-return-impact/data/position.rds")
 ```
 
 
-
 ```{r}
-pivit <- position %>% pivot_longer(AdT:DeuceWide,
-                                    names_to = "Servetype", 
-                                   values_to = "values")
-posit <- pivit %>% 
-  dplyr::filter(values == 1)  %>% 
-  dplyr::select(-values)
-```
-
-
-```{r}
-summarydata <- summary(position)
+summarydata <- summary(positions)
 
 summarydata
 ```
 
 
 ```{r}
-Khachanov <- posit %>%
-  dplyr::filter(player == "K. Khachanov") %>%
-  dplyr::select(X, Y, Ad, Clay, Grass)
+serveone <- positions %>% 
+  dplyr::filter(serve == 1)
 ```
+
+
+```{r}
+servetwo <- positions %>% 
+  dplyr::filter(serve == 2)
+```
+
+
 
 # Marginal Distribution
 
 ```{r}
-p1 <- ggMarginal(p, type="histogram")
- p1
+ggMarginal()
+```
+ 
+
+# GMM Rmixmod
+
+
+# 3 clusters
+
+```{r}
+modelo3 <- mixmodCluster(serveone[,c("X","Y")], 3)
+modelo3
+```
+
+
+```{r}
+plot(modelo3)
+```
+
+```{r}
+models3 <- mixmodCluster(servetwo[,c("X","Y")], 3)
+models3
+```
+
+
+```{r}
+plot(models3)
+```
+
+# cluster 4
+
+```{r}
+modelo4 <- mixmodCluster(serveone[,c("X","Y")], 4)
+modelo4
+plot(modelo4)
+```
+
+
+```{r}
+models4 <- mixmodCluster(servetwo[,c("X","Y")], 4)
+models4
+plot(models4)
+```
+
+# Cluster 5
+
+```{r}
+modelo5 <- mixmodCluster(serveone[,c("X","Y")], 5)
+modelo5
+plot(modelo5)
+```
+
+
+```{r}
+models5 <- mixmodCluster(servetwo[,c("X","Y")], 5)
+models5
+plot(models5)
+```
+
+
+# Cluster 6
+
+
+```{r}
+modelo6 <- mixmodCluster(serveone[,c("X","Y")], 6)
+modelo6
+plot(modelo6)
+```
+
+
+```{r}
+models6 <- mixmodCluster(servetwo[,c("X","Y")], 6)
+models6
+plot(models6)
+```
+
+# Cluster 7 
+
+
+```{r}
+modelo7 <- mixmodCluster(serveone[,c("X","Y")], 7)
+modelo7
+plot(modelo7)
+```
+
+```{r}
+models7 <- mixmodCluster(servetwo[,c("X","Y")], 7)
+models7
+plot(models7)
+```
+
+
+# Cluster 8 
+
+```{r}
+modelo8 <- mixmodCluster(serveone[,c("X","Y")], 8)
+modelo8
+plot(modelo8)
+```
+
+
+```{r}
+models8 <- mixmodCluster(servetwo[,c("X","Y")], 8)
+models8
+plot(models8)
+```
+
+
+
+# Cluster 9 
+
+
+```{r}
+modelo9 <- mixmodCluster(serveone[,c("X","Y")], 9)
+modelo9
+plot(modelo9)
 ```
 
 
 
 ```{r}
-model <- mixmodCluster(positions[,c("X","Y")], 5)
-model
+models9 <- mixmodCluster(servetwo[,c("X","Y")], 9)
+models9
+plot(models9)
+```
+
+# Cluster 10
+
+```{r}
+modelo10 <- mixmodCluster(serveone[,c("X","Y")], 10)
+modelo10
+plot(modelo10)
+```
+
+```{r}
+models10 <- mixmodCluster(servetwo[,c("X","Y")], 10)
+models10
+plot(models10)
+```
+
+
+# Cluster 11 
+
+```{r}
+modelo11 <- mixmodCluster(serveone[,c("X","Y")], 11)
+modelo11
+plot(modelo11)
 ```
 
 
 ```{r}
-fit <- mixmodCluster(Khachanov, 
-                     nbCluster = 2:8,
-       criterion = c("BIC", "ICL", "NEC"), 
-       models = mixmodGaussianModel(), 
-       strategy = strategy1)
-
-```
-
-```{r}
-kmod <- mixmodCluster( positions %>% filter(player == "Khachanov")[,c("X","Y")], 5) %>%
-                plot()
-kmod
-
-
+models11 <- mixmodCluster(servetwo[,c("X","Y")], 11)
+models11
+plot(models11)
 ```
 
 
-```{r}
-plot(kmod)
-```
-
-
-
+# Cluster 12 
 
 ```{r}
-model <- mixmodCluster(positions[,c("X","Y")], 8)
-model
-```
-
-
-```{r}
-summary(model)
-```
-
-```{r}
-plot(model)
-```
-
-```{r}
-model2 <- mixmodCluster(positions[,c("X","Y")], 2)
-model2
-```
-
-
-```{r}
-plot(model2)
-```
-
-
-```{r}
-model3 <- mixmodCluster(positions[,c("X","Y")], 3)
-model3
-```
-
-
-```{r}
-plot(model3)
-```
-
-```{r}
-model4 <- mixmodCluster(positions[,c("X","Y")], 4)
-model4
-```
-
-
-```{r}
-plot(model4)
-```
-
-```{r}
-model5 <- mixmodCluster(positions[,c("X","Y")], 5
-                        )
-model5
-```
-
-
-```{r}
-plot(model5)
-```
-
-```{r}
-model["results"]
-```
-
-
-```{r}
-model["bestResult"]
-```
-
-
-```{r}
-model2["results"]
-```
-
-
-```{r}
-model2["bestResult"]
-```
-
-```{r}
-model3["results"]
+modelo12 <- mixmodCluster(serveone[,c("X","Y")], 12)
+modelo12
+plot(modelo12)
 ```
 
 
 
 ```{r}
-model3["bestResult"]
-```
-
-```{r}
-model4["results"]
-```
-
-
-
-
-```{r}
-model4["bestResult"]
+models12 <- mixmodCluster(servetwo[,c("X","Y")], 12)
+models12
+plot(models12)
 ```
 
 
 ```{r}
-model5["results"]
+summary(modelo3)
+summary(modelo4)
+summary(modelo5)
+summary(modelo6)
+summary(modelo7)
+summary(modelo8)
 ```
 
+# Player 
+
+```{r}
+playerone <- serveone %>%
+  dplyr::filter(player %in% c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta") |
+opponent %in% c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta") 
+                  )
+```
 
 
 ```{r}
-model5["bestResult"]
+pmodo3 <- mixmodCluster(playerone[,c("X","Y")], 3)
+plot(pmodo3 )
 ```
 
 
 
-```{r}
-summary(model)
-```
+
+
+
 
 
 
