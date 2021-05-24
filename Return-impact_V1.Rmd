@@ -12,52 +12,13 @@ knitr::opts_chunk$set(
   cache = TRUE,
   fig.align = "center")
 library(tidyverse) 
-library(pacman)
-library(rio)
-library(skimr)
-library(broom) 
-library(magrittr)
-library(ROCR)
-library(MASS)
-library(caTools)
-library(DMwR)
-library(caret)
 library(ggplot2)
-library(patchwork)
-library(vcd)
-library(gridExtra)
-library(knitr)
-library(corrplot)
-library(scales)
-library(lme4)
-library(DMwR)
-library(InformationValue)
-library(ROCR)
-library(rpart)
-library(randomForest)
-library(xgboost)
-library(xgboostExplainer)
-library(ggmosaic)
-library(e1071)
-library(ranger)
-library(penalized)
-library(rpart.plot)
-library(ggcorrplot)
-library(caTools)
-library(doMC)
-library(partykit)
-library(rattle)
-library(jpeg)
-library(png)
 library(ggExtra)
 library(cluster)
 library(NbClust)
-library(flexclust)
-library(fMultivar)
-library(rattle)
 library(Rmixmod)
 library(mclust)
-registerDoMC(cores=4)
+library(naniar)
 ```
 
 
@@ -66,7 +27,7 @@ positions <- readRDS("/monash-return-impact/data/position.rds")
 ```
 
 
-```{r}
+```{r overview}
 summarydata <- summary(positions)
 
 summarydata
@@ -74,9 +35,15 @@ summarydata
 
 
 ```{r}
+gg_miss_var(positions)
+```
+
+
+```{r}
 serveone <- positions %>% 
   dplyr::filter(serve == 1)
 ```
+
 
 
 ```{r}
@@ -93,110 +60,30 @@ ggMarginal()
 ```
  
 
+
+
+# Cluster Selection 
+
+## serve one 
+```{r}
+clustone <-  Mclust(serveone, 3:12)
+summary(clustone)
+plot(clustone, what = 'BIC', 
+     legendArgs = list(x = "bottomright", ncol = 5))
+```
+
+## serve two
+
+```{r}
+clusttwo <-  Mclust(servetwo, 3:12)
+summary(clusttwo)
+plot(clustone, what = 'BIC', 
+     legendArgs = list(x = "bottomright", ncol = 5))
+```
+
+
+
 # GMM Rmixmod
-
-
-# 3 clusters
-
-```{r}
-modelo3 <- mixmodCluster(serveone[,c("X","Y")], 3)
-modelo3
-```
-
-
-```{r}
-plot(modelo3)
-```
-
-```{r}
-models3 <- mixmodCluster(servetwo[,c("X","Y")], 3)
-models3
-```
-
-
-```{r}
-plot(models3)
-```
-
-# cluster 4
-
-```{r}
-modelo4 <- mixmodCluster(serveone[,c("X","Y")], 4)
-modelo4
-plot(modelo4)
-```
-
-
-```{r}
-models4 <- mixmodCluster(servetwo[,c("X","Y")], 4)
-models4
-plot(models4)
-```
-
-# Cluster 5
-
-```{r}
-modelo5 <- mixmodCluster(serveone[,c("X","Y")], 5)
-modelo5
-plot(modelo5)
-```
-
-
-```{r}
-models5 <- mixmodCluster(servetwo[,c("X","Y")], 5)
-models5
-plot(models5)
-```
-
-
-# Cluster 6
-
-
-```{r}
-modelo6 <- mixmodCluster(serveone[,c("X","Y")], 6)
-modelo6
-plot(modelo6)
-```
-
-
-```{r}
-models6 <- mixmodCluster(servetwo[,c("X","Y")], 6)
-models6
-plot(models6)
-```
-
-# Cluster 7 
-
-
-```{r}
-modelo7 <- mixmodCluster(serveone[,c("X","Y")], 7)
-modelo7
-plot(modelo7)
-```
-
-```{r}
-models7 <- mixmodCluster(servetwo[,c("X","Y")], 7)
-models7
-plot(models7)
-```
-
-
-# Cluster 8 
-
-```{r}
-modelo8 <- mixmodCluster(serveone[,c("X","Y")], 8)
-modelo8
-plot(modelo8)
-```
-
-
-```{r}
-models8 <- mixmodCluster(servetwo[,c("X","Y")], 8)
-models8
-plot(models8)
-```
-
-
 
 # Cluster 9 
 
@@ -215,62 +102,6 @@ models9
 plot(models9)
 ```
 
-# Cluster 10
-
-```{r}
-modelo10 <- mixmodCluster(serveone[,c("X","Y")], 10)
-modelo10
-plot(modelo10)
-```
-
-```{r}
-models10 <- mixmodCluster(servetwo[,c("X","Y")], 10)
-models10
-plot(models10)
-```
-
-
-# Cluster 11 
-
-```{r}
-modelo11 <- mixmodCluster(serveone[,c("X","Y")], 11)
-modelo11
-plot(modelo11)
-```
-
-
-```{r}
-models11 <- mixmodCluster(servetwo[,c("X","Y")], 11)
-models11
-plot(models11)
-```
-
-
-# Cluster 12 
-
-```{r}
-modelo12 <- mixmodCluster(serveone[,c("X","Y")], 12)
-modelo12
-plot(modelo12)
-```
-
-
-
-```{r}
-models12 <- mixmodCluster(servetwo[,c("X","Y")], 12)
-models12
-plot(models12)
-```
-
-
-```{r}
-summary(modelo3)
-summary(modelo4)
-summary(modelo5)
-summary(modelo6)
-summary(modelo7)
-summary(modelo8)
-```
 
 # Player 
 
@@ -279,12 +110,6 @@ playerone <- serveone %>%
   dplyr::filter(player %in% c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta") |
 opponent %in% c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta") 
                   )
-```
-
-
-```{r}
-pmodo3 <- mixmodCluster(playerone[,c("X","Y")], 3)
-plot(pmodo3 )
 ```
 
 
