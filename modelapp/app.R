@@ -5,49 +5,63 @@ library(dplyr)
 library(plotly)
 library(Rmixmod)
 
-positions <- readRDS("data/position.rds")
+position <- readRDS("data/position.rds") 
+positions <- position %>% 
+  pivot_longer(AdT:DeuceWide,
+               names_to = "Servetype", 
+               values_to = "values") %>%
+  filter(values == 1)  %>% 
+  dplyr::select(-values)
 
 
+ui<- pageWithSidebar(
+  headerPanel('Cluster Distribution'),
+  sidebarPanel(
+    selectInput('serve', 'Serve Number:', 
+                c(unique(as.character(positions$serve))),
+                selected = "1"),
+    selectInput("player",
+                "Player:",
+                c(unique(as.character(positions$player))),
+                selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta"),
+                multiple = TRUE),
+    numericInput('clusters', 'Cluster count', 9, min = 3, max = 12),
+    selectInput("servetype",
+                "Serve Type:",
+                c(
+                  unique(as.character(positions$Servetype))),
+                selected = "DeuceWide"),
+    selectInput("surface",
+                "Surface Type:",
+                c(
+                  unique(as.character(positions$surface))),
+                selected = "Hard")
+  ),
+  mainPanel(
+    plotOutput('plot1')
+  )
+)
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
 
-    # Application title
-    titlePanel("Cluster"),
+server <- function(input, output, session) {
+  
+  # Combine the selected variables into a new data frame
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            selectInput('serve', 'Serve Number:', 
-                        c(unique(as.character(positions$serve))),
-                        selected = "1"),
-            selectInput("player",
-                        "Player:",
-                        c(unique(as.character(positions$player))),
-                        selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta")),
-            numericInput('clusters', 'Cluster count', 9, min = 3, max = 12))  
-            
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("Plot")
-        )
-    )
-
-
-# Define server logic required to draw a histogram
-server <- function(input, output) {
+  
+  
+  output$plot1 <- renderPlot({
     
-    selectdata <- positions %>% filter(serve == input$serve,
-                                       player == input$player)
-        output$Plot <- renderPlot({
-       
-   clusterplot <- mixmodCluster(selectdata[,c("X","Y")], input$clusters)
-   plot(clusterplot)         
-    
-    })
+    posit <- positions %>% dplyr::filter(serve == input$serve,
+                                player == input$player,
+                                Servetype == input$servetype,
+                                surface == input$surface)
+   c <-  mixmodCluster(posit[,c("X","Y")], input$clusters)
+    plot(c)
+  })
+  
 }
 
-# Run the application 
+
 shinyApp(ui = ui, server = server)
+
+
