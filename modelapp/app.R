@@ -25,17 +25,17 @@ ui<- pageWithSidebar(
                 c(unique(as.character(positions$player))),
                 selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta"),
                 multiple = TRUE),
-    numericInput('clusters', 'Cluster count', 9, min = 3, max = 12),
-    selectInput("servetype",
-                "Serve Type:",
-                c(
-                  unique(as.character(positions$Servetype))),
-                selected = "DeuceWide"),
-    selectInput("surface",
-                "Surface Type:",
-                c(
-                  unique(as.character(positions$surface))),
-                selected = "Hard")
+    numericInput('clusters', 'Cluster count', 9, min = 3, max = 12)
+    #selectInput("servetype",
+                #"Serve Type:",
+                #c(
+                 # unique(as.character(positions$Servetype)))
+                #selected = "DeuceWide"),
+    #selectInput("surface",
+               # "Surface Type:",
+                #c(
+                  #unique(as.character(positions$surface))),
+                #selected = "Hard")
   ),
   mainPanel(
     plotOutput('plot1')
@@ -52,9 +52,9 @@ server <- function(input, output, session) {
   output$plot1 <- renderPlot({
     
     posit <- positions %>% dplyr::filter(serve == input$serve,
-                                player == input$player,
-                                Servetype == input$servetype,
-                                surface == input$surface)
+                                player == input$player)
+                                #Servetype == input$servetype,
+                                #surface == input$surface)
    c <-  mixmodCluster(posit[,c("X","Y")], input$clusters)
     plot(c)
   })
