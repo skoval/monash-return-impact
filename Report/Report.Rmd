@@ -1,0 +1,80 @@
+---
+title: "Expert advice from experts"
+author:
+- familyname: Curie
+  othernames: Marie
+  address: University of Paris
+  email: mcurie.notreal@gmail.com
+  correspondingauthor: true
+  qualifications: Nobel Prize, PhD
+- familyname: Curie
+  othernames: Pierre
+  address: University of Paris
+  qualifications: Nobel Prize, PhD
+department: Department of\newline Econometrics &\newline Business Statistics
+organization: Acme Corporation
+bibliography: references.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  MonashEBSTemplates::report:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache=TRUE, messages=FALSE, warning=FALSE)
+# Make sure you have the latest versions of rmarkdown and bookdown installed
+library(ggplot2)
+library(tidyverse)
+library(ggExtra)
+library(cluster)
+library(NbClust)
+library(Rmixmod)
+library(mclust)
+library(naniar)
+```
+
+
+```{r missingvalue, out.width="60%",fig.cap= "Missing values overview before cleaning"}
+knitr::include_graphics("map/missing.png")
+```
+
+\clearpage
+
+# Introduction
+
+
+# Overview the dataset
+The data set includes return impact for returned points in ATP singles matches for events between 2018 and 2020. There are 25 variables and 126455 observations in this data set and each observation refers to a single point of within a match.
+
+```{r datset, out.width="60%",fig.cap= "Data set overview"}
+knitr::include_graphics("image/dataset.png")
+```
+
+# PROJECT GOALS
+
+# How variables influence player’s return impact
+
+# Return Impact model
+
+# Implementation
+
+# User Guide
+
+# Conclusion
+
+# Bibliography
+
+
+
+
+
+
