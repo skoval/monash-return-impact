@@ -48,10 +48,16 @@ library(naniar)
 # Introduction
 What positions should players stand and get a better impact on the serve return? Are there any strategies that the players used during their tennis games? As we know, the serve return is also important in tennis, however, there is lots of analysis about the tennis before and return impact analysis were not really common, mainly because the positions of the data containing the 3D position is not easy to collect and there is not too much sample for analysis. In the project, we are going to explore a model for the return impact position of the profession mal players using recently go public tracking data summaries on the ATP Tour websites of the 2D position of the ball at the time of return impact,
 
+
+
+
+
+
+
 # Overview the dataset
 The data set Figure\@ref(fig:datset) includes return impact for returned points in ATP singles matches for events between 2018 and 2020. There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match. From Figure\@ref(fig:tidymiss), there is no missing value in the data set, so we omit the data wrragling this step and use the data directly. 
 
-```{r datset, out.width="60%",fig.cap= "Data set overview"}
+```{r datset, out.width="100%",fig.cap= "Data set overview"}
 knitr::include_graphics("image/dataset.png")
 ```
 
@@ -60,26 +66,29 @@ knitr::include_graphics("image/dataset.png")
 positions <- readRDS("data/position.rds")  
 ```
 
+In this project, there will use X, Y, the position located in
 
-```{r overview}
+```{r overview, out.width="50%"}
 summarydata <- summary(positions)
 
 summarydata
 ```
 
-```{r tidymiss, out.width="60%", fig.cap= "Check missing value"}
+```{r tidymiss, out.width="100%", fig.cap= "Check missing value"}
 gg_miss_var(positions)
 ```
 
 
 # Project Goals
-This project will develop a generative model for the return impact position of professional male players. Furthermore, the project will identify key contextual variables that may influence return impact, including but not limited to:
+The serve return is the shot the receiver hits off of their opponent's serve. Base on the center of the net, the return impact position  This project will develop a generative model for the return impact position of professional male players. Furthermore, the project will identify key contextual variables that may influence return impact, including but not limited to:
 * Serve number
 * Serve direction
 * Surface
 * Receiver
 * Server
 Moreover, there is a shiny dashboard designed for the project visualisation.
+
+ The return impact position is the (x, y) position of the ball when the receiving player makes contact with the ball on the serve return. The (x, y) coordinate is length and lateral position with respect to the court coordinate system. These coordiantes are in meters where (0, 0) is the center of the net.
 
 
 # How variables influence player’s return impact
