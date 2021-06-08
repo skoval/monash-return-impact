@@ -169,9 +169,35 @@ server <- function(input, output) {
 # Run the application 
 shinyApp(ui = ui, server = server)
 
+```{r}
+ courtcolor <- '#0a8d45'
+   
+    courtinside <- '#0a8d45'
+   
+```
 
 
 
+```{r}
+positions %>%
+      filter(player %in% c("N. Djokovic", "R. Federer", "D. Thiem", "R. Nadal"),
+             surface == "Hard",
+             Servetype == "DeuceWide",
+             serve == "1") %>%
+      ggplot(aes(y = Y, x = X)) + 
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
+      geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
+      geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
+                   lineend = 'round') +           
+      geom_point(size = 3, aes(col = factor(serve, lab = "FIRST"), colour = player), alpha = 0.5) +
+      scale_colour_manual("Serve", values = c("orange", "#f572b9")) +
+      theme_bw() +
+      coord_flip() + 
+      theme(legend.position = "top") +
+      scale_x_continuous("Depth (meters from net)", n. = 8) +
+      scale_y_continuous("Lateral position (meters from center)", n. = 8)    
+```
 
 
 

@@ -21,7 +21,7 @@
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
-            pdftitle={Expert advice from experts},
+            pdftitle={MAKING AN IMPACT: A model of return impact in professional tennis},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -32,6 +32,15 @@
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -49,7 +58,7 @@
 \makeatother
 
 
-\title{Expert advice from experts}
+\title{MAKING AN IMPACT: A model of return impact in professional tennis}
 
 %% MONASH STUFF
 
@@ -288,6 +297,21 @@
 
 What positions should players stand and get a better impact on the serve return? Are there any strategies that the players used during their tennis games? As we know, the serve return is also important in tennis, however, there is lots of analysis about the tennis before and return impact analysis were not really common, mainly because the positions of the data containing the 3D position is not easy to collect and there is not too much sample for analysis. In the project, we are going to explore a model for the return impact position of the profession mal players using recently go public tracking data summaries on the ATP Tour websites of the 2D position of the ball at the time of return impact,
 
+\hypertarget{project-goals}{%
+\section{Project Goals}\label{project-goals}}
+
+The serve return is the shot the receiver hits off of their opponent's serve. The position use (x,y) to represent, the center of the net use (0,0),Figure \ref{fig:court} provided the visualisation of the tennis court, the (x,y) is the length and lateral position. This project will develop a generative model for the return impact position of professional male players. Furthermore, the project will identify key contextual variables that may influence return impact, including but not limited to:
+* Serve number
+* Serve direction
+* Surface
+* Receiver
+* Server
+Moreover, there is a shiny dashboard designed for the project visualisation, there is a section will show the user guide about the shiny dashboard.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{image/tennis_court} \caption{Tennis Court}\label{fig:court}
+\end{figure}
+
 \hypertarget{overview-the-dataset}{%
 \section{Overview the dataset}\label{overview-the-dataset}}
 
@@ -353,33 +377,213 @@ The data set Figure\ref{fig:datset} includes return impact for returned points i
 \includegraphics[width=1\linewidth]{Report_files/figure-latex/tidymiss-1} \caption{Check missing value}\label{fig:tidymiss}
 \end{figure}
 
-\hypertarget{project-goals}{%
-\section{Project Goals}\label{project-goals}}
+\hypertarget{how-variables-influence-players-return-impactimplementation}{%
+\section{How variables influence player's return impact(Implementation)}\label{how-variables-influence-players-return-impactimplementation}}
 
-This project will develop a generative model for the return impact position of professional male players. Furthermore, the project will identify key contextual variables that may influence return impact, including but not limited to:
-* Serve number
-* Serve direction
-* Surface
-* Receiver
-* Server
-Moreover, there is a shiny dashboard designed for the project visualisation.
+\hypertarget{model-selection}{%
+\subsection{Model selection}\label{model-selection}}
 
-\hypertarget{how-variables-influence-players-return-impact}{%
-\section{How variables influence player's return impact}\label{how-variables-influence-players-return-impact}}
+Started from the basic models to find out the relationship of the return impact.
+* Logistic Regression
 
-\hypertarget{return-impact-model}{%
-\section{Return Impact model}\label{return-impact-model}}
+\begin{itemize}
+\item
+  Decision Tree
+\item
+  Random Forests
+\item
+  Gradient Boosting
+\item
+  Gaussian Mixture Model
+\end{itemize}
 
-\hypertarget{implementation}{%
-\section{Implementation}\label{implementation}}
+\hypertarget{cluster-selection}{%
+\subsection{Cluster Selection}\label{cluster-selection}}
 
-\hypertarget{user-guide}{%
-\section{User Guide}\label{user-guide}}
+The number of cluster components chose for the analysis was using the \texttt{Mclust} package that calculate their BIC and Figure \ref{fig:seronems} show the trend of the BIC.
+
+\hypertarget{serve-one}{%
+\subsection{serve one}\label{serve-one}}
+
+\begin{verbatim}
+## ---------------------------------------------------- 
+## Gaussian finite mixture model fitted by EM algorithm 
+## ---------------------------------------------------- 
+## 
+## Mclust EII (spherical, equal volume) model with 12 components: 
+## 
+##  log-likelihood     n  df       BIC       ICL
+##        -8154922 74883 312 -16313347 -16315565
+## 
+## Clustering table:
+##     1     2     3     4     5     6     7     8     9    10    11    12 
+##  4949  4781  5238 12176  7012  4843  6042  6785  7124  5452  5233  5248
+\end{verbatim}
+
+\includegraphics{Report_files/figure-latex/seronems-1.pdf}
+
+\hypertarget{serve-two}{%
+\subsection{serve two}\label{serve-two}}
+
+\begin{verbatim}
+## ---------------------------------------------------- 
+## Gaussian finite mixture model fitted by EM algorithm 
+## ---------------------------------------------------- 
+## 
+## Mclust VII (spherical, varying volume) model with 12 components: 
+## 
+##  log-likelihood     n  df       BIC       ICL
+##        -5616451 51572 323 -11236406 -11237669
+## 
+## Clustering table:
+##    1    2    3    4    5    6    7    8    9   10   11   12 
+## 3995 3702 5181 3580 5262 3816 3000 3246 3564 8060 4199 3967
+\end{verbatim}
+
+\includegraphics{Report_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+Compare to two serve of the difference number of cluster components' BIC, the number of 9 cluster perform well in the model. Thus, it will use 9 cluster for the rest analysis. In the shiny dashboard, there is a panel can run the function below to check the change of difference components cluster by selecting serve number, serve type, player, surface type.
+
+\begin{verbatim}
+## ****************************************
+## *** INPUT:
+## ****************************************
+## * nbCluster =  9 
+## * criterion =  BIC 
+## ****************************************
+## *** MIXMOD Models:
+## * list =  Gaussian_pk_Lk_C 
+## * This list includes only models with free proportions.
+## ****************************************
+## * data (limited to a 10x10 matrix) =
+##       X      Y     
+##  [1,] -13.19 6.68  
+##  [2,] -13.03 5.731 
+##  [3,] -13.44 5.519 
+##  [4,] -13.39 6.84  
+##  [5,] -14.9  1.174 
+##  [6,] -13.55 -5.544
+##  [7,] -13.29 6.597 
+##  [8,] -13.24 -5.542
+##  [9,] -14.19 -3.489
+## [10,] -13.75 1.574 
+## * ... ...
+## ****************************************
+## *** MIXMOD Strategy:
+## * algorithm            =  EM 
+## * number of tries      =  1 
+## * number of iterations =  200 
+## * epsilon              =  0.001 
+## *** Initialization strategy:
+## * algorithm            =  smallEM 
+## * number of tries      =  10 
+## * number of iterations =  5 
+## * epsilon              =  0.001 
+## * seed                 =  NULL 
+## ****************************************
+## 
+## 
+## ****************************************
+## *** BEST MODEL OUTPUT:
+## *** According to the BIC criterion
+## ****************************************
+## * nbCluster   =  9 
+## * model name  =  Gaussian_pk_Lk_C 
+## * criterion   =  BIC(594167.0499)
+## * likelihood  =  -296875.8868 
+## ****************************************
+## *** Cluster 1 
+## * proportion =  0.1911 
+## * means      =  -13.3630 1.5874 
+## * variances  = |     0.4737    -0.0298 |
+##                |    -0.0298     0.2946 |
+## *** Cluster 2 
+## * proportion =  0.0429 
+## * means      =  -14.9798 -6.1702 
+## * variances  = |     1.4187    -0.0893 |
+##                |    -0.0893     0.8824 |
+## *** Cluster 3 
+## * proportion =  0.2035 
+## * means      =  -12.8196 -5.1903 
+## * variances  = |     0.7719    -0.0486 |
+##                |    -0.0486     0.4802 |
+## *** Cluster 4 
+## * proportion =  0.0323 
+## * means      =  -15.0320 6.6422 
+## * variances  = |     1.1014    -0.0693 |
+##                |    -0.0693     0.6851 |
+## *** Cluster 5 
+## * proportion =  0.2019 
+## * means      =  -12.4514 5.7605 
+## * variances  = |     0.4761    -0.0300 |
+##                |    -0.0300     0.2962 |
+## *** Cluster 6 
+## * proportion =  0.0387 
+## * means      =  -12.9781 3.5837 
+## * variances  = |     0.6530    -0.0411 |
+##                |    -0.0411     0.4062 |
+## *** Cluster 7 
+## * proportion =  0.0708 
+## * means      =  -14.7497 1.2513 
+## * variances  = |     3.8013    -0.2393 |
+##                |    -0.2393     2.3645 |
+## *** Cluster 8 
+## * proportion =  0.0964 
+## * means      =  -14.0630 -1.8374 
+## * variances  = |     2.0216    -0.1272 |
+##                |    -0.1272     1.2575 |
+## *** Cluster 9 
+## * proportion =  0.1223 
+## * means      =  -13.4413 -1.0902 
+## * variances  = |     0.3865    -0.0243 |
+##                |    -0.0243     0.2404 |
+## ****************************************
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\includegraphics{Report_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+Under the result used the GMM model, there is a further discussion of the return impact base on the player, the match intensity increase and the rest of the variables.
+
+\hypertarget{the-strategy-of-top-3-players-return-impact-positions}{%
+\subsection{The strategy of top 3 players' return impact positions}\label{the-strategy-of-top-3-players-return-impact-positions}}
+
+Are the top players have large difference of the return impact positions? Or similar.
+
+\hypertarget{any-ajust-strategy-in-the-promotion-event-especially-the-final-round}{%
+\subsection{Any ajust strategy in the Promotion event especially the final round?}\label{any-ajust-strategy-in-the-promotion-event-especially-the-final-round}}
+
+Will player stand near or far away from the court during the semi-final ground? Or final ground?
+
+\hypertarget{how-are-surface-type-influence-playersperformance}{%
+\subsection{How are surface type influence players'performance?}\label{how-are-surface-type-influence-playersperformance}}
+
+As grass and clay surface type have some slightly difference and will they influence the return impact positions?
+
+\hypertarget{atp-lefties-in-the-top-100-rankings-return-impact}{%
+\subsection{ATP Lefties In The Top 100 Rankings' return impact}\label{atp-lefties-in-the-top-100-rankings-return-impact}}
+
+Are the player will have similar return impact positions because they are left hand users?
+
+\hypertarget{will-they-change-stategy-when-were-facing-familar-player}{%
+\subsection{(will they change stategy when were facing familar player)}\label{will-they-change-stategy-when-were-facing-familar-player}}
+
+Compare head-to-head history result, find out the player have larger win proportion and compare their each game return impact positions.
+
+\hypertarget{dashboard-user-guide}{%
+\section{Dashboard User Guide}\label{dashboard-user-guide}}
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
-\printbibliography[title=Bibliography]
+\printbibliography[title=Reference]
 
 \end{document}
 
