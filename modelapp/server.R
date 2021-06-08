@@ -40,7 +40,7 @@ shinyServer(function(input, output, session) {
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +           
       geom_point(size = 3, aes(col = factor(input$servenum, lab = input$servenum)), alpha = 0.5) +
-      scale_colour_manual("Serve", values = c("orange", "#f572b9")) +
+      scale_colour_manual("Serve Number", values = "orange") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
@@ -86,7 +86,7 @@ shinyServer(function(input, output, session) {
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +           
       geom_point(size = 3, aes(col = factor(input$servenum, lab = input$servenum)), alpha = 0.5) +
-      scale_colour_manual("serve", values = c("orange", "#f572b9")) +
+      scale_colour_manual("Serve Number", values =  "#f572b9") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
@@ -134,7 +134,7 @@ shinyServer(function(input, output, session) {
                    lineend = 'round') +     
       stat_density_2d(geom = "polygon", 
                       aes(alpha = ..level.., group = input$serve, fill = input$serve), n = 100, bins = 10) +
-      scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
+      scale_fill_manual("Serve Type", values = "orange") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
@@ -183,7 +183,7 @@ shinyServer(function(input, output, session) {
                    lineend = 'round') +     
       stat_density_2d(geom = "polygon", 
                       aes(alpha = ..level.., group = input$serve, fill = input$serve ), n = 100, bins = 10) +
-      scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
+      scale_fill_manual("Serve Type", values = "#f572b9") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +

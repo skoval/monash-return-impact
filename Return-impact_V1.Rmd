@@ -81,6 +81,16 @@ plot(clustone, what = 'BIC',
      legendArgs = list(x = "bottomright", ncol = 5))
 ```
 
+* Hierarchical Clustering
+
+
+```{r}
+ames_scale <- positions%>%
+  select_if(is.numeric) %>% # select numeric columns
+  select(-Z, -year) %>%    # remove target column -server_n, -receiver_n, -server_id, -return_id
+  mutate_all(as.double) %>%  # coerce to double type
+  scale() 
+```
 
 
 # GMM Rmixmod

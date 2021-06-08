@@ -199,11 +199,11 @@
 \DeclareDelimFormat[cbx@textcite]{nameyeardelim}{\addspace}
 \makeatother
 
-\author{\sf\Large\textbf{ Marie Curie}\\ {\sf\large Nobel Prize, PhD\\[0.5cm]} \sf\Large\textbf{ Pierre Curie}\\ {\sf\large Nobel Prize, PhD\\[0.5cm]}}
+\author{\sf\Large\textbf{ Lin Peimin}\\ {\sf\large \\[0.5cm]}}
 
 \date{\sf\Date~\Month~\Year}
 \makeatletter
-\lfoot{\sf Curie, Curie: \@date}
+\lfoot{\sf Peimin: \@date}
 \makeatother
 
 
@@ -214,9 +214,9 @@
 \def\telephone#1{\gdef\@telephone{#1}}
 \def\email#1{\gdef\@email{#1}}
 \makeatother
-  \organization{Acme Corporation}
+  \organization{}
 
-  \def\name{Department of\newline Econometrics \&\newline Business Statistics}
+  \def\name{Department of \hbox{Econometrics \&} \hbox{Business Statistics}}
 
   \telephone{(03) 9905 2478}
 
@@ -309,7 +309,7 @@ The serve return is the shot the receiver hits off of their opponent's serve. Th
 Moreover, there is a shiny dashboard designed for the project visualisation, there is a section will show the user guide about the shiny dashboard.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{image/tennis_court} \caption{Tennis Court}\label{fig:court}
+\includegraphics[width=0.7\linewidth]{image/tennis_court} \caption{Tennis Court}\label{fig:court}
 \end{figure}
 
 \hypertarget{overview-the-dataset}{%
@@ -377,8 +377,8 @@ The data set Figure\ref{fig:datset} includes return impact for returned points i
 \includegraphics[width=1\linewidth]{Report_files/figure-latex/tidymiss-1} \caption{Check missing value}\label{fig:tidymiss}
 \end{figure}
 
-\hypertarget{how-variables-influence-players-return-impactimplementation}{%
-\section{How variables influence player's return impact(Implementation)}\label{how-variables-influence-players-return-impactimplementation}}
+\hypertarget{how-variables-influence-players-return-impact}{%
+\section{How variables influence player's return impact}\label{how-variables-influence-players-return-impact}}
 
 \hypertarget{model-selection}{%
 \subsection{Model selection}\label{model-selection}}
@@ -401,46 +401,6 @@ Started from the basic models to find out the relationship of the return impact.
 \subsection{Cluster Selection}\label{cluster-selection}}
 
 The number of cluster components chose for the analysis was using the \texttt{Mclust} package that calculate their BIC and Figure \ref{fig:seronems} show the trend of the BIC.
-
-\hypertarget{serve-one}{%
-\subsection{serve one}\label{serve-one}}
-
-\begin{verbatim}
-## ---------------------------------------------------- 
-## Gaussian finite mixture model fitted by EM algorithm 
-## ---------------------------------------------------- 
-## 
-## Mclust EII (spherical, equal volume) model with 12 components: 
-## 
-##  log-likelihood     n  df       BIC       ICL
-##        -8154922 74883 312 -16313347 -16315565
-## 
-## Clustering table:
-##     1     2     3     4     5     6     7     8     9    10    11    12 
-##  4949  4781  5238 12176  7012  4843  6042  6785  7124  5452  5233  5248
-\end{verbatim}
-
-\includegraphics{Report_files/figure-latex/seronems-1.pdf}
-
-\hypertarget{serve-two}{%
-\subsection{serve two}\label{serve-two}}
-
-\begin{verbatim}
-## ---------------------------------------------------- 
-## Gaussian finite mixture model fitted by EM algorithm 
-## ---------------------------------------------------- 
-## 
-## Mclust VII (spherical, varying volume) model with 12 components: 
-## 
-##  log-likelihood     n  df       BIC       ICL
-##        -5616451 51572 323 -11236406 -11237669
-## 
-## Clustering table:
-##    1    2    3    4    5    6    7    8    9   10   11   12 
-## 3995 3702 5181 3580 5262 3816 3000 3246 3564 8060 4199 3967
-\end{verbatim}
-
-\includegraphics{Report_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 Compare to two serve of the difference number of cluster components' BIC, the number of 9 cluster perform well in the model. Thus, it will use 9 cluster for the rest analysis. In the shiny dashboard, there is a panel can run the function below to check the change of difference components cluster by selecting serve number, serve type, player, surface type.
 
@@ -489,54 +449,54 @@ Compare to two serve of the difference number of cluster components' BIC, the nu
 ## ****************************************
 ## * nbCluster   =  9 
 ## * model name  =  Gaussian_pk_Lk_C 
-## * criterion   =  BIC(594167.0499)
-## * likelihood  =  -296875.8868 
+## * criterion   =  BIC(594512.8263)
+## * likelihood  =  -297048.7750 
 ## ****************************************
 ## *** Cluster 1 
-## * proportion =  0.1911 
-## * means      =  -13.3630 1.5874 
-## * variances  = |     0.4737    -0.0298 |
-##                |    -0.0298     0.2946 |
+## * proportion =  0.1923 
+## * means      =  -13.3713 1.5946 
+## * variances  = |     0.4684    -0.0251 |
+##                |    -0.0251     0.3017 |
 ## *** Cluster 2 
-## * proportion =  0.0429 
-## * means      =  -14.9798 -6.1702 
-## * variances  = |     1.4187    -0.0893 |
-##                |    -0.0893     0.8824 |
+## * proportion =  0.1946 
+## * means      =  -12.7992 -5.2246 
+## * variances  = |     0.7069    -0.0379 |
+##                |    -0.0379     0.4553 |
 ## *** Cluster 3 
-## * proportion =  0.2035 
-## * means      =  -12.8196 -5.1903 
-## * variances  = |     0.7719    -0.0486 |
-##                |    -0.0486     0.4802 |
+## * proportion =  0.0334 
+## * means      =  -15.0166 6.6092 
+## * variances  = |     1.1315    -0.0606 |
+##                |    -0.0606     0.7287 |
 ## *** Cluster 4 
-## * proportion =  0.0323 
-## * means      =  -15.0320 6.6422 
-## * variances  = |     1.1014    -0.0693 |
-##                |    -0.0693     0.6851 |
+## * proportion =  0.1081 
+## * means      =  -14.7894 0.0460 
+## * variances  = |     4.2262    -0.2263 |
+##                |    -0.2263     2.7219 |
 ## *** Cluster 5 
-## * proportion =  0.2019 
-## * means      =  -12.4514 5.7605 
-## * variances  = |     0.4761    -0.0300 |
-##                |    -0.0300     0.2962 |
+## * proportion =  0.0437 
+## * means      =  -13.0272 3.5503 
+## * variances  = |     0.7429    -0.0398 |
+##                |    -0.0398     0.4784 |
 ## *** Cluster 6 
-## * proportion =  0.0387 
-## * means      =  -12.9781 3.5837 
-## * variances  = |     0.6530    -0.0411 |
-##                |    -0.0411     0.4062 |
+## * proportion =  0.0471 
+## * means      =  -14.9055 -6.0844 
+## * variances  = |     1.4518    -0.0777 |
+##                |    -0.0777     0.9350 |
 ## *** Cluster 7 
-## * proportion =  0.0708 
-## * means      =  -14.7497 1.2513 
-## * variances  = |     3.8013    -0.2393 |
-##                |    -0.2393     2.3645 |
+## * proportion =  0.1483 
+## * means      =  -13.4998 -1.1433 
+## * variances  = |     0.4578    -0.0245 |
+##                |    -0.0245     0.2948 |
 ## *** Cluster 8 
-## * proportion =  0.0964 
-## * means      =  -14.0630 -1.8374 
-## * variances  = |     2.0216    -0.1272 |
-##                |    -0.1272     1.2575 |
+## * proportion =  0.2010 
+## * means      =  -12.4469 5.7603 
+## * variances  = |     0.4643    -0.0249 |
+##                |    -0.0249     0.2991 |
 ## *** Cluster 9 
-## * proportion =  0.1223 
-## * means      =  -13.4413 -1.0902 
-## * variances  = |     0.3865    -0.0243 |
-##                |    -0.0243     0.2404 |
+## * proportion =  0.0315 
+## * means      =  -13.1488 -3.0511 
+## * variances  = |     0.7965    -0.0427 |
+##                |    -0.0427     0.5130 |
 ## ****************************************
 \end{verbatim}
 
@@ -548,7 +508,7 @@ Compare to two serve of the difference number of cluster components' BIC, the nu
 ## [1] 2
 \end{verbatim}
 
-\includegraphics{Report_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{Report_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 Under the result used the GMM model, there is a further discussion of the return impact base on the player, the match intensity increase and the rest of the variables.
 
@@ -579,6 +539,12 @@ Compare head-to-head history result, find out the player have larger win proport
 
 \hypertarget{dashboard-user-guide}{%
 \section{Dashboard User Guide}\label{dashboard-user-guide}}
+
+Figure\ref{fig:dashboard}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{image/dashboard} \caption{Shiny Dashboard}\label{fig:dashboard}
+\end{figure}
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}

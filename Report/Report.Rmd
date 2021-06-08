@@ -1,12 +1,11 @@
 ---
 title: "MAKING AN IMPACT: A model of return impact in professional tennis"
 author:
-- familyname: Curie
-  othernames: Marie
-  address: University of Paris
-  email: mcurie.notreal@gmail.com
-  correspondingauthor: true
-  qualifications: Nobel Prize, PhD
+- familyname: Peimin
+  othernames: Lin
+  address: Monash University
+  email: plin0018@student.monash.edu
+  correspondingauthor: false
 - familyname: Curie
   othernames: Pierre
   address: University of Paris
@@ -74,8 +73,8 @@ knitr::include_graphics("image/dataset.png")
 ```{r read_data}
 position <- readRDS("data/position.rds")  
 positions <- position %>% 
-  mutate(hard = case_when(surface == "Hard" ~ "1",
-                          surface == "Hard" ~ "0"))
+  mutate(hard = case_when(surface == "Hard" ~ 1,
+                          surface != "Hard" ~ 0))
 
 ```
 
@@ -103,20 +102,6 @@ Started from the basic models to find out the relationship of the return impact.
 * Gradient Boosting
 
 
-* Hierarchical Clustering
-
-
-```{r}
-ames_scale <- positions%>%
-  select_if(is.numeric) %>% # select numeric columns
-  select(-Z, -year) %>%    # remove target column -server_n, -receiver_n, -server_id, -return_id
-  mutate_all(as.double) %>%  # coerce to double type
-  scale() 
-```
-
-
-
-
 * Gaussian Mixture Model
 
 ```{r}
@@ -133,22 +118,7 @@ servetwo <- positions %>%
 ## Cluster Selection
 The number of cluster components chose for the analysis was using the `Mclust` package that calculate their BIC and Figure \@ref(fig:seronems) show the trend of the BIC. 
 
-## serve one 
-```{r seronems}
-clustone <-  Mclust(serveone, 3:12)
-summary(clustone)
-plot(clustone, what = 'BIC', 
-     legendArgs = list(x = "bottomright", ncol = 5))
-```
 
-## serve two
-
-```{r}
-clusttwo <-  Mclust(servetwo, 3:12)
-summary(clusttwo)
-plot(clusttwo, what = 'BIC', 
-     legendArgs = list(x = "bottomright", ncol = 5))
-```
 
 Compare to two serve of the difference number of cluster components' BIC, the number of 9 cluster perform well in the model. Thus, it will use 9 cluster for the rest analysis. In the shiny dashboard, there is a panel can run the function below to check the change of difference components cluster by selecting serve number, serve type, player, surface type.
 ```{r}
@@ -175,6 +145,12 @@ Are the player will have similar return impact positions because they are left h
 Compare head-to-head history result, find out the player have larger win proportion and compare their each game return impact positions.
 
 # Dashboard User Guide
+
+Figure\@ref(fig:dashboard)
+
+```{r dashboard, out.width="100%",fig.cap= "Shiny Dashboard"}
+knitr::include_graphics("image/dashboard.png")
+```
 
 # Conclusion
 

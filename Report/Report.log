@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.4.12)  8 JUN 2021 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.4.12)  8 JUN 2021 23:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1072,7 +1072,7 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 )
 \@quotelevel=\count427
 \@quotereset=\count428
-(./Report.aux)
+No file Report.aux.
 \openout1 = `Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 290.
@@ -1147,7 +1147,6 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 290.
 LaTeX Info: Redefining \pageref on input line 290.
 LaTeX Info: Redefining \nameref on input line 290.
-(./Report.out) (./Report.out)
 \@outlinefile=\write4
 \openout4 = `Report.out'.
 
@@ -1210,8 +1209,8 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 \openout3 = `Report.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Report.bbl' found.
-(./Report.bbl)
+Package biblatex Info: ... file 'Report.bbl' not found.
+No file Report.bbl.
 Package biblatex Info: Reference section=0 on input line 290.
 Package biblatex Info: Reference segment=0 on input line 290.
 
@@ -1236,7 +1235,7 @@ ction with package mdbch, on input line 290.
 Package mathdesign/mdbch Warning: Package 'amsfonts' shouldn't be used in conjo
 nction with package mdbch, on input line 290.
 
-<MBSportrait.pdf, id=64, 213.79875pt x 90.3375pt>
+<MBSportrait.pdf, id=4, 213.79875pt x 90.3375pt>
 File: MBSportrait.pdf Graphic file (type pdf)
 <use MBSportrait.pdf>
 Package pdftex.def Info: MBSportrait.pdf  used on input line 291.
@@ -1497,121 +1496,21 @@ LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
 (Font)              scaled to size 13.82408pt on input line 291.
 
-Overfull \hbox (172.68228pt too wide) detected at line 291
-[] 
- []
+! LaTeX Error: There's no line here to end.
 
-
-Overfull \hbox (56.23262pt too wide) detected at line 291
- [] |  [] []
- []
-
-[1
-
-{c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map} <./MBSportrait.pdf>]
-<image/tennis_court.png, id=78, 594.22pt x 262.9825pt>
-File: image/tennis_court.png Graphic file (type png)
-<use image/tennis_court.png>
-Package pdftex.def Info: image/tennis_court.png  used on input line 312.
-(pdftex.def)             Requested size: 455.26591pt x 201.48592pt.
-LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 312.
-LaTeX Font Info:    Font shape `T1/mdbch/m/it' will be
-(Font)              scaled to size 10.51207pt on input line 312.
-[2
-
- <./image/tennis_court.png>]
-<image/dataset.png, id=93, 782.02612pt x 132.67477pt>
-File: image/dataset.png Graphic file (type png)
-<use image/dataset.png>
-Package pdftex.def Info: image/dataset.png  used on input line 321.
-(pdftex.def)             Requested size: 455.25798pt x 77.23686pt.
-LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.24173pt on input line 324.
-[3 <./image/dataset.png>]
-<Report_files/figure-latex/tidymiss-1.pdf, id=103, 578.16pt x 361.35pt>
-File: Report_files/figure-latex/tidymiss-1.pdf Graphic file (type pdf)
-<use Report_files/figure-latex/tidymiss-1.pdf>
-Package pdftex.def Info: Report_files/figure-latex/tidymiss-1.pdf  used on inpu
-t line 377.
-(pdftex.def)             Requested size: 455.24165pt x 284.52603pt.
-LaTeX Font Info:    Trying to load font information for TS1+mdbch on input line
- 391.
-
-(c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mathdesign/mdbch/t
-s1mdbch.fd
-File: ts1mdbch.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdbch.
-)
-LaTeX Font Info:    Font shape `TS1/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 391.
-[4]
-
-LaTeX Warning: Reference `fig:seronems' on page 5 undefined on input line 403.
-
-[5 <./Report_files/figure-latex/tidymiss-1.pdf>]
-<Report_files/figure-latex/seronems-1.pdf, id=121, 578.16pt x 361.35pt>
-File: Report_files/figure-latex/seronems-1.pdf Graphic file (type pdf)
-<use Report_files/figure-latex/seronems-1.pdf>
-Package pdftex.def Info: Report_files/figure-latex/seronems-1.pdf  used on inpu
-t line 423.
-(pdftex.def)             Requested size: 455.24165pt x 284.52603pt.
-[6 <./Report_files/figure-latex/seronems-1.pdf>]
-<Report_files/figure-latex/unnamed-chunk-3-1.pdf, id=132, 578.16pt x 361.35pt>
-File: Report_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
-<use Report_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: Report_files/figure-latex/unnamed-chunk-3-1.pdf  used 
-on input line 443.
-(pdftex.def)             Requested size: 455.24165pt x 284.52603pt.
-[7 <./Report_files/figure-latex/unnamed-chunk-3-1.pdf>] [8] [9]
-<Report_files/figure-latex/unnamed-chunk-4-1.pdf, id=151, 578.16pt x 361.35pt>
-File: Report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
-<use Report_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Report_files/figure-latex/unnamed-chunk-4-1.pdf  used 
-on input line 551.
-(pdftex.def)             Requested size: 455.24165pt x 284.52603pt.
-[10 <./Report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-
-LaTeX Warning: Empty bibliography on input line 586.
-
-
-Package caption Warning: Unused \captionsetup[table] on input line 70.
-See the caption package documentation for explanation.
-
-[11] (./Report.aux)
-
-LaTeX Warning: There were undefined references.
-
-Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: AB3E70BCE2A419523CD7E00551C77B08;3563.
-Package logreq Info: Writing requests to 'Report.run.xml'.
-\openout1 = `Report.run.xml'.
-
- ) 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.291 \titlepage
+                 
 Here is how much of TeX's memory you used:
- 24532 strings out of 480954
- 412551 string characters out of 5905582
- 1150681 words of memory out of 5000000
- 41080 multiletter control sequences out of 15000+600000
- 506782 words of font info for 267 fonts, out of 8000000 for 9000
+ 24189 strings out of 480954
+ 406941 string characters out of 5905582
+ 1135461 words of memory out of 5000000
+ 40952 multiletter control sequences out of 15000+600000
+ 481765 words of font info for 169 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,13n,93p,739b,808s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.en
-c}{c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/ly1/texnan
-si.enc}{c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/fonta
-wesome/fontawesometwo.enc}<c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fo
-nts/type1/public/fontawesome/FontAwesome.pfb><c:/Users/lpmPh/AppData/Roaming/Ti
-nyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb><c:/Users/lpmPh/AppDat
-a/Roaming/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb><c:/Users/
-lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.p
-fb><c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/bera/f
-vmr8a.pfb><c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public
-/bera/fvsb8a.pfb><c:/Users/lpmPh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
-/public/bera/fvsr8a.pfb>
-Output written on Report.pdf (11 pages, 3066284 bytes).
-PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
- 45 named destinations out of 1000 (max. 500000)
- 82076 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 71i,13n,75p,739b,808s stack positions out of 5000i,500n,10000p,200000b,80000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
