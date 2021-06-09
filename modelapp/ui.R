@@ -56,12 +56,12 @@ dashboardPage(
       tabItem("density",
               fluidRow(
                 box(
-                  title = "Distribution One",
+                  title = "Distribution Player One",
                     status = "danger",
                     width = 4,
                     solidHeader = TRUE,  
                     plotOutput("distPlot1")),
-                box(title = "Distribution Two",
+                box(title = "Distribution Player Two",
                     status = "danger",
                     width = 4,
                     solidHeader = TRUE,  
@@ -71,20 +71,31 @@ dashboardPage(
                                 c(unique(as.character(positions$serve))),
                                 selected = "1"),
                     selectInput("player",
-                                "Player One for Distribution:",
+                                "Player One:",
                                 c(unique(as.character(positions$player))),
                                 selected = "A. Zverev"),
                     selectInput("complay",
-                                "Player Two for Distribution:",
+                                "Player Two:",
                                 c(unique(as.character(positions$player))),
-                                selected = "R. Federer"))),
+                                selected = "R. Federer"),
+                    selectInput("surface",
+                                "Surface Type:",
+                                c(
+                                  unique(as.character(positions$surface))),
+                                selected = "Hard"),
+                    selectInput("serve",
+                                "Serve Type:",
+                                c(
+                                  unique(as.character(positions$Servetype))),
+                                selected = "DeuceT")
+                    )),
               
               fluidRow(
-                box(title = "Density One",
+                box(title = "Density Player One",
                     status = "danger",
                     width = 4, solidHeader = TRUE,
                     plotOutput("densitplot1")),
-                box(title = "Density Two",
+                box(title = "Density Player Two",
                     status = "danger",
                     width = 4, solidHeader = TRUE,
                     plotOutput("densitplot2")))
@@ -99,10 +110,6 @@ dashboardPage(
           solidHeader = TRUE,  
           plotOutput("densitplot3")),
         box(width = 4,
-            selectInput('servenum',
-                        'Serve Number:', 
-                        c(unique(as.character(positions$serve))),
-                        selected = "1"),
             selectInput("player",
                         "Player:",
                         c(unique(as.character(positions$player))),
@@ -129,7 +136,12 @@ dashboardPage(
           plotOutput("densitplot5")))),
       
       tabItem("cluster",
-              fluidRow(   selectInput("serve",
+              fluidRow( 
+                box(width = 9,
+                  title = "Cluster",
+                             plotOutput("cluster", width = "900px", height = "750px")),
+                box(width = 3,
+                  selectInput("serve",
                                       "Serve Type:",
                                       c(
                                         unique(as.character(positions$Servetype))),
@@ -147,16 +159,7 @@ dashboardPage(
                                       c(unique(as.character(positions$player))),
                                       selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta"),
                                       multiple = TRUE),
-                          selectInput("player",
-                                      "Player One for Distribution:",
-                                      c(unique(as.character(positions$player))),
-                                      selected = "A. Zverev"),
-                          numericInput('clusters', 'Cluster count', 9, min = 3, max = 12)),
-              fluidRow(
-                title = "Cluster",
-                plotOutput("cluster", width = "900px", height = "750px")
-                
-              )
+                          numericInput('clusters', 'Cluster count', 9, min = 3, max = 12)))
               
       ),
       tabItem("refer",

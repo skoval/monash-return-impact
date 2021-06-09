@@ -11,8 +11,7 @@ library(shinydashboard)
 position <- readRDS("data/position.rds") 
 positions <- position %>% 
   mutate(hard = case_when(surface == "Hard" ~ "1",
-                          surface == "Hard" ~ "0"),
-         year1 = year) %>%
+                          surface == "Hard" ~ "0")) %>%
   pivot_longer(AdT:DeuceWide,
                names_to = "Servetype", 
                values_to = "values") %>%

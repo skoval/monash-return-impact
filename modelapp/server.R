@@ -132,8 +132,8 @@ shinyServer(function(input, output, session) {
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +     
       stat_density_2d(geom = "polygon", 
-                      aes(alpha = ..level.., group = input$serve, fill = input$serve), n = 100, bins = 10) +
-      scale_fill_manual("Serve Type", values = "orange") +
+                      aes(alpha = ..level.., group = input$servenum, fill = input$servenum), n = 100, bins = 10) +
+      scale_fill_manual("Serve", values = "orange") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
@@ -171,8 +171,8 @@ shinyServer(function(input, output, session) {
     positions %>%
       filter(player == input$complay,
              surface == input$surface,
-             Servetype == input$serve,
-             serve == input$servenum) %>%
+             serve == input$servenum,
+             Servetype == input$serve) %>%
       ggplot(aes(y = Y, x = X)) + 
       xlim(-10,10) +
       annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
@@ -181,14 +181,13 @@ shinyServer(function(input, output, session) {
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +     
       stat_density_2d(geom = "polygon", 
-                      aes(alpha = ..level.., group = input$serve, fill = input$serve ), n = 100, bins = 10) +
-      scale_fill_manual("Serve Type", values = "#f572b9") +
+                      aes(alpha = ..level.., group = input$servenum, fill = input$servenum), n = 100, bins = 10) +
+      scale_fill_manual("Serve", values = "#f572b9") +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
       scale_x_continuous("Depth (meters from net)", n. = 8) +
       scale_y_continuous("Lateral position (meters from center)", n. = 8) 
-    
     
     
     
@@ -208,23 +207,22 @@ courtinside <- '#1263b0'
     
    hard %>%
       filter(player == input$player,
-             Servetype == input$serve,
-             serve == input$servenum) %>%
-      ggplot(aes(y = Y, x = X)) + 
-      xlim(-10,10) +
-      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
-      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
-      geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
-      geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
-                   lineend = 'round') +     
-      stat_density_2d(geom = "polygon", 
-                      aes(alpha = ..level.., group = input$serve, fill = input$serve ), n = 100, bins = 10) +
-      scale_fill_manual("Serve Type", values = "#f572b9") +
-      theme_bw() +
-      coord_flip() + 
-      theme(legend.position = "top") +
-      scale_x_continuous("Depth (meters from net)", n. = 8) +
-      scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+             Servetype == input$serve) %>%
+     ggplot(aes(y = Y, x = X)) + 
+     xlim(-10,10) +
+     annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+     annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
+     geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
+     geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
+                  lineend = 'round') +     
+     stat_density_2d(geom = "polygon", 
+                     aes(alpha = ..level.., group = input$serve, fill = input$serve), n = 100, bins = 10) +
+     scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
+     theme_bw() +
+     coord_flip() + 
+     theme(legend.position = "top") +
+     scale_x_continuous("Depth (meters from net)", n. = 8) +
+     scale_y_continuous("Lateral position (meters from center)", n. = 8) 
     
     
     
@@ -243,8 +241,8 @@ courtinside <- '#1263b0'
     
     clay %>%
       filter(player == input$player,
-             Servetype == input$serve,
-             serve == input$servenum) %>%
+             Servetype == input$serve
+             ) %>%
       ggplot(aes(y = Y, x = X)) + 
       xlim(-10,10) +
       annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
@@ -253,13 +251,13 @@ courtinside <- '#1263b0'
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +     
       stat_density_2d(geom = "polygon", 
-                      aes(alpha = ..level.., group = input$serve, fill = input$serve ), n = 100, bins = 10) +
-      scale_fill_manual("Serve Type", values = "#f572b9") +
+                      aes(alpha = ..level.., group = input$serve, fill = input$serve), n = 100, bins = 10) +
+      scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
       theme_bw() +
       coord_flip() + 
       theme(legend.position = "top") +
       scale_x_continuous("Depth (meters from net)", n. = 8) +
-      scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+      scale_y_continuous("Lateral position (meters from center)", n. = 8)  
     
     
     
@@ -280,23 +278,24 @@ courtinside <- '#1263b0'
       filter(surface == "Grass")
      grass %>%
       filter(player == input$complay,
-             Servetype == input$serve,
-             serve == input$servenum) %>%
-      ggplot(aes(y = Y, x = X)) + 
-      xlim(-10,10) +
-      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
-      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
-      geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
-      geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
-                   lineend = 'round') +     
-      stat_density_2d(geom = "polygon", 
-                      aes(alpha = ..level.., group = input$serve, fill = input$serve ), n = 100, bins = 10) +
-      scale_fill_manual("Serve Type", values = "#f572b9") +
-      theme_bw() +
-      coord_flip() + 
-      theme(legend.position = "top") +
-      scale_x_continuous("Depth (meters from net)", n. = 8) +
-      scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+             Servetype == input$serve
+             ) %>%
+       ggplot(aes(y = Y, x = X)) + 
+       xlim(-10,10) +
+       annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+       annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
+       geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
+       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
+                    lineend = 'round') +     
+       stat_density_2d(geom = "polygon", 
+                       aes(alpha = ..level..,  group = input$serve, fill = input$serve), n = 100, bins = 10) +
+       scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
+       theme_bw() +
+       coord_flip() + 
+       theme(legend.position = "top") +
+       scale_x_continuous("Depth (meters from net)", n. = 8) +
+       scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+     
     
     
     
