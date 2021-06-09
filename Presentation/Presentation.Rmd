@@ -31,6 +31,7 @@ library(xaringanExtra)
 library(bomrang)
 library(HeatStress)
 library(colorspace)
+library(kableExtra)
 ```
 
 
@@ -57,9 +58,26 @@ class:inverse
 
 ## How are the serve number, serve direction, surface influence their position?
 
-## Any ajust strategy in the Promotion event especially the final round?
-
 ## ATP Lefties In The Top 100 Rankings' return impact
 
+
+---
+class:middle
+
+```{r}
+position <- readRDS("data/position.rds") 
+```
+
+
+```{r data-structure, echo=F, fig.cap="Data Overview"}
+datades <- data.frame(
+  Variable = c("X","Y","Serve", "Player","Surface", "ServeType"),
+  Description = c("Length of the Position(-23.8,23.8)","Lateral of the Position(-11.89,11.89)","Serve Number(First Serve, Second Serve)","Tennis Player Name(84 Players)", "Surface Type(Hard, Clay, Grass)", "Serve Direction(AdBody, AdWide, AdT,DeuceBody, DeuceWide, DeuceT)"))
+datades %>%
+  kable(caption = "Data Overview") %>%
+   kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "white")
+```
 
 

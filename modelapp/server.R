@@ -207,7 +207,8 @@ courtinside <- '#1263b0'
     
    hard %>%
       filter(player == input$player,
-             Servetype == input$serve) %>%
+             Servetype == input$serve
+            ) %>%
      ggplot(aes(y = Y, x = X)) + 
      xlim(-10,10) +
      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
