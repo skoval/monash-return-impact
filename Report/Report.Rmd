@@ -141,7 +141,7 @@ As grass and clay surface type have some slightly difference and will they influ
 ## ATP Lefties In The Top 100 Rankings' return impact
 Are the player will have similar return impact positions because they are left hand users?
 
-## (will they change stategy when were facing familar player) 
+## will they change stategy when were facing familar player
 Compare head-to-head history result, find out the player have larger win proportion and compare their each game return impact positions.
 
 # Dashboard User Guide

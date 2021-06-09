@@ -1,0 +1,65 @@
+---
+title: "MAKING AN IMPACT"
+subtitle: "A Model of Return Impact in Professional Tennis"
+author: "Peimin Lin"
+institute: "Zelus Anlytics"
+date: "2021/06/11"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    seal: false
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+  message = FALSE,
+  warning = FALSE,
+  fig.width=10, 
+  fig.height=7)
+library(xaringanthemer)
+library(readr)
+library(tidyverse)
+library(Rmixmod)
+library(patchwork)
+library(naniar)
+library(xaringanExtra)
+library(bomrang)
+library(HeatStress)
+library(colorspace)
+```
+
+
+```{r xaringan-slide-tone, echo=FALSE}
+style_mono_accent(base_color = "#614bad")
+xaringanExtra::use_panelset()
+```
+
+
+
+background-image: url(https://tennisespresso.com/wp-content/uploads/2020/05/5c4d86ab2bdd7f338a25ada4.jpg)
+class: center, middle
+# MAKING AN IMPACT
+
+## Peimin Lin
+###  Mentor: Stephanie Kovalchik from Zelus Anlytics
+
+
+---
+
+class:inverse
+
+## Do the top ploayers have a special stategy?
+
+## How are the serve number, serve direction, surface influence their position?
+
+## Any ajust strategy in the Promotion event especially the final round?
+
+## ATP Lefties In The Top 100 Rankings' return impact
+
+
+
