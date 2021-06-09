@@ -53,12 +53,15 @@ class: center, middle
 ---
 
 class:inverse
+# Motivation
 
-## Do the top ploayers have a special stategy?
+### Develop a model for return imapct position
 
-## How are the serve number, serve direction, surface influence their position?
+- Do the top players stand in a regular position in serve return?
 
-## ATP Lefties In The Top 100 Rankings' return impact
+- How are the serve number, serve direction, surface type influence their position?
+
+- ATP lefties in the top 100 rankings' return impact
 
 
 ---
@@ -68,16 +71,76 @@ class:middle
 position <- readRDS("data/position.rds") 
 ```
 
-
-```{r data-structure, echo=F, fig.cap="Data Overview"}
-datades <- data.frame(
+```{r data-structure, fig.cap="Mainly Variable Used"}
+var <- data.frame(
   Variable = c("X","Y","Serve", "Player","Surface", "ServeType"),
-  Description = c("Length of the Position(-23.8,23.8)","Lateral of the Position(-11.89,11.89)","Serve Number(First Serve, Second Serve)","Tennis Player Name(84 Players)", "Surface Type(Hard, Clay, Grass)", "Serve Direction(AdBody, AdWide, AdT,DeuceBody, DeuceWide, DeuceT)"))
-datades %>%
-  kable(caption = "Data Overview") %>%
+  Description = c("Length of the Position(-23.77, 23.77)","Lateral of the Position(-11.89, 11.89)","Serve Number(First Serve, Second Serve)","Tennis Player Name(84 Players)", "Surface Type(Hard, Clay, Grass)", "Serve Direction(AdBody, AdWide, AdT,DeuceBody, DeuceWide, DeuceT)"))
+var %>%
+  kable(caption = "Mainly Variable Used") %>%
    kable_paper(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "30em", background = "white")
 ```
 
 
+???
+There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match.
+
+---
+
+# What is return impact?
+
+.pull-left[ 
+
+- **serve return** is the receiver hits off of their opponent's serve.
+
+- **return impact** position is when the receiving player makes contact with the ball on the serve return
+
+]
+
+
+.pull-right[
+
+<img src="returnimpact.png" width="700" height="450">
+
+
+]
+
+
+
+---
+# Gaussian mixture model
+
+###Rmixmod Package
+
+<img src="cluster.png" width="700" height="450">
+
+???
+Unsupervised classification
+model
+function in package
+---
+# Move to Shiny Dashboard to find the result
+
+- Do the top players stand in a regular position in serve return?
+
+- How are the serve number, serve direction, surface type influence their position?
+
+- ATP lefties in the top 100 rankings' return impact
+
+???
+Show the Shiny Dashboard
+
+---
+
+class: center, middle
+# Question Time
+
+![question](https://media3.giphy.com/media/3ohzdGpyTDGrOpiK7m/giphy.gif?cid=ecf05e47mbrhreonqga2npg7un5vxf8rcdnssafig769eqdy&rid=giphy.gif)
+
+---
+
+class: center, middle
+
+# Thanks!
+<img src="https://media.giphy.com/media/xIJLgO6rizUJi/giphy.gif" alt="Italian Trulli" width="500" height="400">

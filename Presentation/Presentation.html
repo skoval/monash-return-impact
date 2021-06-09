@@ -32,12 +32,15 @@ class: center, middle
 ---
 
 class:inverse
+# Motivation
 
-## Do the top ploayers have a special stategy?
+### Develop a model for return imapct position
 
-## How are the serve number, serve direction, surface influence their position?
+- Do the top players stand in a regular position in serve return?
 
-## ATP Lefties In The Top 100 Rankings' return impact
+- How are the serve number, serve direction, surface type influence their position?
+
+- ATP lefties in the top 100 rankings' return impact
 
 
 ---
@@ -45,9 +48,8 @@ class:middle
 
 
 
-
 &lt;table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
-&lt;caption&gt;Data Overview&lt;/caption&gt;
+&lt;caption&gt;Mainly Variable Used&lt;/caption&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
@@ -57,11 +59,11 @@ class:middle
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:left;width: 30em; background-color: white !important;"&gt; Length of the Position(-23.8,23.8) &lt;/td&gt;
+   &lt;td style="text-align:left;width: 30em; background-color: white !important;"&gt; Length of the Position(-23.77, 23.77) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; Y &lt;/td&gt;
-   &lt;td style="text-align:left;width: 30em; background-color: white !important;"&gt; Lateral of the Position(-11.89,11.89) &lt;/td&gt;
+   &lt;td style="text-align:left;width: 30em; background-color: white !important;"&gt; Lateral of the Position(-11.89, 11.89) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; Serve &lt;/td&gt;
@@ -81,6 +83,69 @@ class:middle
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+
+???
+There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match.
+
+---
+
+# What is return impact?
+
+.pull-left[ 
+
+- **serve return** is the receiver hits off of their opponent's serve.
+
+- **return impact** position is when the receiving player makes contact with the ball on the serve return
+
+]
+
+
+.pull-right[
+
+&lt;img src="returnimpact.png" width="700" height="450"&gt;
+
+
+]
+
+
+
+---
+# Gaussian mixture model
+
+###Rmixmod Package
+
+&lt;img src="cluster.png" width="700" height="450"&gt;
+
+???
+Unsupervised classification
+model
+function in package
+---
+# Move to Shiny Dashboard to find the result
+
+- Do the top players stand in a regular position in serve return?
+
+- How are the serve number, serve direction, surface type influence their position?
+
+- ATP lefties in the top 100 rankings' return impact
+
+???
+Show the Shiny Dashboard
+
+---
+
+class: center, middle
+# Question Time
+
+![question](https://media3.giphy.com/media/3ohzdGpyTDGrOpiK7m/giphy.gif?cid=ecf05e47mbrhreonqga2npg7un5vxf8rcdnssafig769eqdy&amp;rid=giphy.gif)
+
+---
+
+class: center, middle
+
+# Thanks!
+&lt;img src="https://media.giphy.com/media/xIJLgO6rizUJi/giphy.gif" alt="Italian Trulli" width="500" height="400"&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
