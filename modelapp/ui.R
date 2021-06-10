@@ -73,11 +73,11 @@ dashboardPage(
                     selectInput("player",
                                 "Player One:",
                                 c(unique(as.character(positions$player))),
-                                selected = "A. Zverev"),
+                                selected = "R. Federer"),
                     selectInput("complay",
                                 "Player Two:",
                                 c(unique(as.character(positions$player))),
-                                selected = "R. Federer"),
+                                selected = "A. Zverev"),
                     selectInput("surface",
                                 "Surface Type:",
                                 c(
@@ -114,6 +114,9 @@ dashboardPage(
                         "Player:",
                         c(unique(as.character(positions$player))),
                         selected = "R. Federer"),
+            selectInput('servenum', 'Serve Number:', 
+                        c(unique(as.character(positions$serve))),
+                        selected = "1"),
             selectInput("serve",
                         "Serve Type:",
                         c(
@@ -159,7 +162,7 @@ dashboardPage(
                                       c(unique(as.character(positions$player))),
                                       selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta"),
                                       multiple = TRUE),
-                          numericInput('clusters', 'Cluster count', 9, min = 3, max = 12)))
+                          numericInput('clusters', 'Cluster count', 5, min = 3, max = 12)))
               
       ),
       tabItem("refer",

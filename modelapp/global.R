@@ -19,3 +19,13 @@ positions <- position %>%
 # Define dimensions of tennis court on negative X (receiver) side only
 courtTrace <- data.frame(x = c(-11.89, -11.89, -5.4, -5.4, -11.89, -11.89, -5.4, -5.4, -11.89, -6.4, -6.4, -5.4, -5.4, -5.4, -6.4),
                          y = c(5.49, -5.49, -5.49, 5.49, 5.49, 4.115, 4.115, -4.115, -4.115, -4.115, 4.115, 4.115, -4.115, 0, 0))
+
+
+grass <- positions %>%
+  filter(surface == "Grass")
+
+clay <- positions %>%
+  filter(surface == "Clay")
+
+hard <- positions %>%
+  filter(surface == "Hard")

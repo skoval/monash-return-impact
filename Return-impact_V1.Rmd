@@ -24,6 +24,7 @@ library(naniar)
 
 ```{r read_data}
 positions <- readRDS("/monash-return-impact/data/position.rds")  
+
 ```
 
 
@@ -31,6 +32,11 @@ positions <- readRDS("/monash-return-impact/data/position.rds")
 summarydata <- summary(positions)
 
 summarydata
+```
+
+```{r}
+match <- positions %>%
+  count(match_id)
 ```
 
 
@@ -51,12 +57,22 @@ servetwo <- positions %>%
   dplyr::filter(serve == 2)
 ```
 
-
+$$\sum_{K}=\lambda_kDAD^{-T}$$
+Number of parameters
+$$\alpha+\beta+K-1$$
+M step
+$$IP$$
 
 # Marginal Distribution
 
 ```{r}
 ggMarginal()
+```
+```{r}
+clust <-  Mclust(positions, 3:12)
+summary(clust)
+plot(clust, what = 'density', 
+     legendArgs = list(x = "topright", ncol = 5))
 ```
  
 
@@ -70,6 +86,7 @@ clustone <-  Mclust(serveone, 3:12)
 summary(clustone)
 plot(clustone, what = 'BIC', 
      legendArgs = list(x = "bottomright", ncol = 5))
+
 ```
 
 ## serve two
@@ -96,6 +113,12 @@ ames_scale <- positions%>%
 # GMM Rmixmod
 
 # Cluster 9 
+```{r}
+all <- mixmodCluster(positions[,c("X","Y")], 3:9)
+all
+summary(all)
+plot(all)
+```
 
 
 ```{r}
@@ -104,6 +127,9 @@ modelo9
 plot(modelo9)
 ```
 
+```{r}
+modelo9["bestResults"]
+```
 
 
 ```{r}
@@ -211,7 +237,11 @@ positions %>%
 
 
 
-
+  selectInput("serve",
+                        "Serve Type:",
+                        c(
+                          unique(as.character(positions$Servetype))),
+                        selected = "DeuceT")
 
 
 

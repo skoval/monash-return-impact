@@ -2,7 +2,7 @@
 title: "MAKING AN IMPACT"
 subtitle: "A Model of Return Impact in Professional Tennis"
 author: "Peimin Lin"
-institute: "Zelus Anlytics"
+institute: "Zelus Analytics"
 date: "2021/06/11"
 output:
   xaringan::moon_reader:
@@ -13,6 +13,16 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+rmdlink: yes
+keywords: []
+comment: no
+autoCollapseToc: no
+postMetaInFooter: no
+hiddenFromHomePage: no
+mathjax: no
+mathjaxEnableSingleDollar: no
+mathjaxEnableAutoNumber: no
+ratio: '16:9'
 ---
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -32,6 +42,8 @@ library(bomrang)
 library(HeatStress)
 library(colorspace)
 library(kableExtra)
+library(shiny)
+library(shinydashboard)
 ```
 
 
@@ -42,30 +54,67 @@ xaringanExtra::use_panelset()
 
 
 
-background-image: url(https://tennisespresso.com/wp-content/uploads/2020/05/5c4d86ab2bdd7f338a25ada4.jpg)
-class: center, middle
+background-image: url(https://i2.wp.com/www.tennisnation.com/wp-content/uploads/2015/12/tennis-instruction.jpg)
+background-size: cover
+class: right, middle, inverse
 # MAKING AN IMPACT
-
 ## Peimin Lin
-###  Mentor: Stephanie Kovalchik from Zelus Anlytics
+#### Mentor: Stephanie Kovalchik 
+#### Institute: Zelus Analytics
+
 
 
 ---
-
-class:inverse
 # Motivation
 
-### Develop a model for return imapct position
+- Develop a model for return impact position
 
-- Do the top players stand in a regular position in serve return?
+- The typical spatial characteristics of the return impact position of top men's players
 
 - How are the serve number, serve direction, surface type influence their position?
 
 - ATP lefties in the top 100 rankings' return impact
 
-
 ---
+# What is the return impact?
+
+.pull-left[ 
+
+- **Serve Return** is the receiver hits off of their opponent's serve.
+
+- **Return Impact** position is when the receiving player makes contact with the ball on the serve return
+
+]
+
+
+.pull-right[
+
+<img src="returnimpact.png" width="700" height="450">
+
+
+]
+---
+
 class:middle
+
+# Data Overview
+
+.pull-left[ 
+- **2018-2020**
+
+- **1,287** matches 
+
+- **84** players    
+
+-  **25** variables 
+
+- **126,455** observations 
+
+]
+
+
+
+.pull-right[
 
 ```{r}
 position <- readRDS("data/position.rds") 
@@ -82,51 +131,61 @@ var %>%
   column_spec(2, width = "30em", background = "white")
 ```
 
+]
 
 ???
-There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match.
+- The data is summary tracking data total **1,287** matches and **84** players from **2018-2020** for the Men's Pro Tennis Tournament. 
+- There are **25** variables and **126,455** observations in this data set and each observation refers to a single point within a match.
+
 
 ---
 
-# What is return impact?
+class: center, middle
+# Exploration of the Data
 
-.pull-left[ 
 
-- **serve return** is the receiver hits off of their opponent's serve.
 
-- **return impact** position is when the receiving player makes contact with the ball on the serve return
+---
+# Model Discovery
+### What is the Gaussian Mixture Model
+
+$$f(x_i) = \sum_{k=1}^G\pi_kf_k(x_i; \mu_k, \Sigma_k)$$
+where $f_k$ is usually a multivariate normal distribution. The parameters are estimated by maximum likelihood, and choice between models is made using BIC.
+
+$$BIC = −2L(\hat{\theta}) + ν ln n$$ 
+
+
+---
+# BIC and Cluster
+.pull-left[
+
+### BIC Comparison
+
+<img src="BIC.png" width="500" height="300">
 
 ]
-
 
 .pull-right[
 
-<img src="returnimpact.png" width="700" height="450">
+### Cluster plot
 
+<img src="cluster.png" width="500" height="300">
 
 ]
-
-
-
----
-# Gaussian mixture model
-
-###Rmixmod Package
-
-<img src="cluster.png" width="700" height="450">
 
 ???
 Unsupervised classification
 model
 function in package
 ---
-# Move to Shiny Dashboard to find the result
+# Find the result
 
-- Do the top players stand in a regular position in serve return?
+- The typical spatial characteristics of the return impact position of top men's players
 
 - How are the serve number, serve direction, surface type influence their position?
 
 - ATP lefties in the top 100 rankings' return impact
+
 
 ???
 Show the Shiny Dashboard

@@ -1,0 +1,13 @@
+name: return-impact
+title: return-impact
+username:
+account: peimin-lin
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4252310
+bundleId: 4701275
+url: https://peimin-lin.shinyapps.io/return-impact/
+when: 1623334045.52999
+lastSyncTime: 1623334045.52999
+asMultiple: FALSE
+asStatic: FALSE
