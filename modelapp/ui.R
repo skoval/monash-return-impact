@@ -4,10 +4,10 @@ dashboardPage(
     sidebarMenu(
       menuItem(text = "Player",
                tabName = "final",
-               icon = icon("map-marked-alt")),
+               icon = icon("baseball-ball")),
       menuItem(text = "Comparison",
                tabName = "density",
-               icon = icon("map-marked-alt")),
+               icon = icon("balance-scale-right")),
       menuItem(text = "Cluster",
                tabName = "cluster",
                icon = icon("chart-bar")),
@@ -148,7 +148,7 @@ dashboardPage(
                                       "Serve Type:",
                                       c(
                                         unique(as.character(positions$Servetype))),
-                                      selected = "DeuceT"),
+                                      selected = "DeuceWide"),
                           selectInput("surface",
                                       "Surface Type:",
                                       c(
@@ -160,7 +160,7 @@ dashboardPage(
                           selectInput("players",
                                       "Player for Cluster:",
                                       c(unique(as.character(positions$player))),
-                                      selected = c("N. Djokovic", "R. Federer", "D. Thiem", "A. Zverev", "D. Schwartzman", "R. Nadal", "D. Medvedev", "S. Tsitsipas", "A. Rublev", "M. Berrettini", "R. Bautista Agut", "P. Carreno Busta"),
+                                      selected = c("N. Djokovic", "R. Federer", "D. Thiem", "D. Schwartzman", "R. Nadal"),
                                       multiple = TRUE),
                           numericInput('clusters', 'Cluster count', 5, min = 3, max = 12)))
               

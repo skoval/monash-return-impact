@@ -204,10 +204,11 @@ shinyServer(function(input, output, session) {
 courtinside <- '#1263b0'
  
     
-   hard %>%
+   positions %>%
       filter(player == input$player,
              Servetype == input$serve,
-             serve == input$servenum
+             serve == input$servenum,
+             surface == "Hard"
             ) %>%
      ggplot(aes(y = Y, x = X)) + 
      xlim(-10,10) +
@@ -238,10 +239,11 @@ courtinside <- '#1263b0'
       courtinside <- '#a3350a'
    
     
-    clay %>%
+   positions %>%
       filter(player == input$player,
              Servetype == input$serve,
-             serve == input$servenum
+             serve == input$servenum,
+             surface == "Clay"
              ) %>%
       ggplot(aes(y = Y, x = X)) + 
       xlim(-10,10) +
@@ -274,10 +276,11 @@ courtinside <- '#1263b0'
       courtinside <- '#057517'
    
     
-     grass %>%
+    positions %>%
       filter(player == input$player,
              Servetype == input$serve,
-             serve == input$servenum
+             serve == input$servenum,
+             surface == "Grass"
              ) %>%
        ggplot(aes(y = Y, x = X)) + 
        xlim(-10,10) +

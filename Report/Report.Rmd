@@ -46,16 +46,23 @@ library(factoextra)
 \clearpage
 
 # Introduction
-What positions should players stand and get a better impact on the serve return? Are there any strategies that the players used during their tennis games? As we know, the serve return is also important in tennis, however, there is lots of analysis about the tennis before and return impact analysis were not really common, mainly because the positions of the data containing the 3D position is not easy to collect and there is not too much sample for analysis. In the project, we are going to explore a model for the return impact position of the profession mal players using recently go public tracking data summaries on the ATP Tour websites of the 2D position of the ball at the time of return impact,
+What positions should players stand and get a better impact on the serve return? Are there any strategies that the players used during their tennis games? As we know, the serve return is also important in tennis, however, there are lots of tennis analysis did by data scientists before except return impact analysis because the positions of the data containing the 3D position were not easy to collect and there were not too much sample for analysis. However, in the early 2000s return serve positions’ data began to collect by some profession tracking systems like Hawkeye and since then, those data went public that more and more serve return analysis appeared[@step]. In the project, we are going to explore a model for the return impact position of the profession male players using recently go public tracking data summaries on the ATP Tour websites of the 2D position of the ball at the time of return impact containing 84 male players, 1287 tennis matches from 2018 to 2020. Find out the relationship between the return impact and serve number, serve type, tennis court types, left-hand and right-hand user player and servers through the RETURN IMPACT shiny dashboard. According to the result, it could provide some useful training strategy to coach during the training, players could forecast the positions should stand to defence during the 
+match.
 
+# Motivation
+The motivation of this project is to develop a model for return impact positions, discover the relationship between the return position and the typical spatial characteristics of the return impact position of male player. Furthermore, a shiny dashboard was designed according to the data using in this project. Based on the dashboard, the project will check into the more detail question. For example, does the serve number, serve direction, surface type makes a separate influence for their return position? What about only two of those conditions? Or all difference conditions will largely change their position? In top 100 male tennis player, there are some left-hand user players, are their return position have large difference than right-hand user player?
+
+# What is the return impact?
+
+Before we start, there is short introduction of tennis that will make you have better understanding about the project. Serve in tennis is player use a tennis racquet to hit the tennis ball and serve return is the receiver hits off of their opponent’s serve. Return impact position talking in this project is when the receiving player makes contact with the ball on the serve return. Figure \@ref(fig:returnimpact) shows the return impact position in a tennis match.
+
+```{r returnimpact, out.width="70%",fig.cap= "Return Impact"}
+knitr::include_graphics("image/returnimpact.png")
+```
 
 # Project Goals
 The serve return is the shot the receiver hits off of their opponent's serve. The position use (x,y) to represent, the center of the net use (0,0),Figure \@ref(fig:court) provided the visualisation of the tennis court, the (x,y) is the length and lateral position. This project will develop a generative model for the return impact position of professional male players. Furthermore, the project will identify key contextual variables that may influence return impact, including but not limited to:
-* Serve number
-* Serve direction
-* Surface
-* Receiver
-* Server
+
 Moreover, there is a shiny dashboard designed for the project visualisation, there is a section will show the user guide about the shiny dashboard.
 
 ```{r court, out.width="70%",fig.cap= "Tennis Court"}
@@ -63,20 +70,31 @@ knitr::include_graphics("image/tennis_court.png")
 ```
 
 # Overview the dataset
+The data set includes return impact for returned points in ATP singles matches for events between 2018 and 2020. There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match. 
+
+The data includes return impact for returned points in ATP singles matches for events between 2018 and 2020. There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match. 
+The data was provided by Zelus Analytics,
+
+
+
 The data set Figure\@ref(fig:datset) includes return impact for returned points in ATP singles matches for events between 2018 and 2020. There are 25 variables and 126455 observations in this data set and each observation refers to a single point within a match. From Figure\@ref(fig:tidymiss), there is no missing value in the data set, so we omit the data wrragling this step and use the data directly. 
 
-```{r datset, out.width="100%",fig.cap= "Data set overview"}
-knitr::include_graphics("image/dataset.png")
-```
-
-
 ```{r read_data}
-position <- readRDS("data/position.rds")  
-positions <- position %>% 
-  mutate(hard = case_when(surface == "Hard" ~ 1,
-                          surface != "Hard" ~ 0))
-
+positions <- readRDS("data/position.rds")  
 ```
+
+
+```{r datable, fig.cap="Mainly Variable Used"}
+var <- data.frame(
+  Variable = c("X","Y","Serve", "Player","Surface", "ServeType"),
+  Description = c("Length of the Position(-23.77, 23.77)","Lateral of the Position(-11.89, 11.89)","Serve Number(First Serve, Second Serve)","Tennis Player Name(84 Players)", "Surface Type(Hard, Clay, Grass)", "Serve Direction(AdBody, AdWide, AdT,DeuceBody, DeuceWide, DeuceT)"))
+var %>%
+  kable(caption = "Mainly Variable Used") %>%
+   kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "white")
+```
+
 
 
 ```{r overview, out.width="50%"}
