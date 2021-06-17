@@ -57,10 +57,10 @@ dashboardPage(
               fluidRow(
                 box(
                   title = "Distribution Player One",
-                    status = "danger",
-                    width = 4,
-                    solidHeader = TRUE,  
-                    plotOutput("distPlot1")),
+                  status = "danger",
+                  width = 4,
+                  solidHeader = TRUE,  
+                  plotOutput("distPlot1")),
                 box(title = "Distribution Player Two",
                     status = "danger",
                     width = 4,
@@ -88,7 +88,7 @@ dashboardPage(
                                 c(
                                   unique(as.character(positions$Servetype))),
                                 selected = "DeuceT")
-                    )),
+                )),
               
               fluidRow(
                 box(title = "Density Player One",
@@ -102,67 +102,56 @@ dashboardPage(
               
       ),
       tabItem("final",
-        fluidRow(
-        box(
-          title = "Hard Court",
-          status = "danger",
-          width = 8,
-          solidHeader = TRUE,  
-          plotOutput("densitplot3")),
-        box(width = 4,
-            selectInput("player",
-                        "Player:",
-                        c(unique(as.character(positions$player))),
-                        selected = "R. Federer"),
-            selectInput('servenum', 'Serve Number:', 
-                        c(unique(as.character(positions$serve))),
-                        selected = "1"),
-            selectInput("serve",
-                        "Serve Type:",
-                        c(
-                          unique(as.character(positions$Servetype))),
-                        selected = "DeuceT"))),
-            
-        fluidRow(
-          box(
-            title = "Clay Court",
-            status = "danger",
-            width = 8,
-            solidHeader = TRUE,  
-            plotOutput("densitplot4"))
-        ),
-        fluidRow(box(
-          title = "Grass Court",
-          status = "danger",
-          width = 8,
-          solidHeader = TRUE,  
-          plotOutput("densitplot5")))),
+              fluidRow(
+                box(
+                  title = "Marginal Distribution",
+                  status = "danger",
+                  width = 9,
+                  solidHeader = TRUE,  
+                  plotOutput("densitplot3", width = "900px", height = "750px")),
+                box(width = 3,
+                    selectInput("player",
+                                "Player:",
+                                c(unique(as.character(positions$player))),
+                                selected = "R. Federer"),
+                    selectInput("surface",
+                                "Surface Type:",
+                                c(
+                                  unique(as.character(positions$surface))),
+                                selected = "Hard"),
+                    selectInput("serve",
+                                "Serve Type:",
+                                c(
+                                  unique(as.character(positions$Servetype))),
+                                selected = "DeuceT")))
+              
+            ),
       
       tabItem("cluster",
               fluidRow( 
                 box(width = 9,
-                  title = "Cluster",
-                             plotOutput("cluster", width = "900px", height = "750px")),
+                    title = "Cluster",
+                    plotOutput("cluster", width = "900px", height = "750px")),
                 box(width = 3,
-                  selectInput("serve",
-                                      "Serve Type:",
-                                      c(
-                                        unique(as.character(positions$Servetype))),
-                                      selected = "DeuceWide"),
-                          selectInput("surface",
-                                      "Surface Type:",
-                                      c(
-                                        unique(as.character(positions$surface))),
-                                      selected = "Hard"),
-                          selectInput('servenum', 'Serve Number:', 
-                                      c(unique(as.character(positions$serve))),
-                                      selected = "1"),
-                          selectInput("players",
-                                      "Player for Cluster:",
-                                      c(unique(as.character(positions$player))),
-                                      selected = c("N. Djokovic", "R. Federer", "D. Thiem", "D. Schwartzman", "R. Nadal"),
-                                      multiple = TRUE),
-                          numericInput('clusters', 'Cluster count', 5, min = 3, max = 12)))
+                    selectInput("serve",
+                                "Serve Type:",
+                                c(
+                                  unique(as.character(positions$Servetype))),
+                                selected = "DeuceWide"),
+                    selectInput("surface",
+                                "Surface Type:",
+                                c(
+                                  unique(as.character(positions$surface))),
+                                selected = "Hard"),
+                    selectInput('servenum', 'Serve Number:', 
+                                c(unique(as.character(positions$serve))),
+                                selected = "1"),
+                    selectInput("players",
+                                "Player for Cluster:",
+                                c(unique(as.character(positions$player))),
+                                selected = c("N. Djokovic", "R. Federer", "D. Thiem", "D. Schwartzman", "R. Nadal"), 
+                                multiple = TRUE),
+                    numericInput('clusters', 'Cluster count', 5, min = 3, max = 12)))
               
       ),
       tabItem("refer",

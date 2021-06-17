@@ -114,7 +114,7 @@ ames_scale <- positions%>%
 
 # Cluster 9 
 ```{r}
-all <- mixmodCluster(positions[,c("X","Y")], 3:9)
+all <- mixmodCluster(positions[,c("X","Y")], 3:12)
 all
 summary(all)
 plot(all)

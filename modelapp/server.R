@@ -94,7 +94,7 @@ shinyServer(function(input, output, session) {
     
   })
   
- 
+  
   
   output$densitplot1 <- renderPlot({
     
@@ -195,60 +195,64 @@ shinyServer(function(input, output, session) {
   
   
   
-    
+  
   output$densitplot3 <- renderPlot({
     
- 
- courtcolor <- '#68b0f2'
-   
-courtinside <- '#1263b0'
- 
+    courtcolor <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtcolor <- '#d16036'
+    }
+    else if(input$surface == 'Grass'){
+      courtcolor <- '#00a30e'
+    }
+    else {
+      courtcolor <- '#68b0f2'
+    }
     
-   positions %>%
+    courtinside <- '#0a8d45'
+    if(input$surface == 'Clay'){
+      courtinside <- '#a3350a'
+    }
+    else if(input$surface == 'Grass'){
+      courtinside <- '#057517'
+    }
+    else {
+      courtinside <- '#1263b0'
+    }
+    
+    
+  p <- positions %>%
       filter(player == input$player,
-             Servetype == input$serve,
-             serve == input$servenum,
-             surface == "Hard"
-            ) %>%
-     ggplot(aes(y = Y, x = X)) + 
-     xlim(-10,10) +
-     annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
-     annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
-     geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
-     geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
-                  lineend = 'round') +     
-     stat_density_2d(geom = "polygon", 
-                     aes(alpha = ..level.., group = input$serve, fill = input$serve), n = 100, bins = 10) +
-     scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
-     theme_bw() +
-     coord_flip() + 
-     theme(legend.position = "top") +
-     scale_x_continuous("Depth (meters from net)", n. = 8) +
-     scale_y_continuous("Lateral position (meters from center)", n. = 8) 
-    
-    
-    
+             surface == input$surface,
+             Servetype == input$serve) %>%
+      ggplot(aes(y = Y, x = X)) + 
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
+      geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
+      geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
+                   lineend = 'round') +           
+      geom_point(size = 3, aes(col = factor(serve, lab = c("FIRST", "SECOND"))), alpha = 0.5) +
+      scale_colour_manual("Serve", values = c("orange", "#f572b9")) +
+      theme_bw() +
+      coord_flip() + 
+      theme(legend.position = "top") +
+      scale_x_continuous("Depth (meters from net)", n. = 8) +
+      scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+   ggMarginal(p, type="histogram")
   })
   
   output$densitplot4 <- renderPlot({
     
-  
-      courtcolor <- '#d16036'
     
-   
-      courtinside <- '#a3350a'
-   
-    
-   positions %>%
+    clay %>%
       filter(player == input$player,
              Servetype == input$serve,
-             serve == input$servenum,
-             surface == "Clay"
-             ) %>%
+             serve == input$servenum
+      ) %>%
       ggplot(aes(y = Y, x = X)) + 
       xlim(-10,10) +
-      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
-      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill='#d16036') +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill='#a3350a') +
       geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
                    lineend = 'round') +     
@@ -269,35 +273,30 @@ courtinside <- '#1263b0'
   
   output$densitplot5 <- renderPlot({
     
-
-      courtcolor <- '#00a30e'
     
-   
-      courtinside <- '#057517'
-   
     
-    positions %>%
+   grass %>%
       filter(player == input$player,
              Servetype == input$serve,
-             serve == input$servenum,
-             surface == "Grass"
-             ) %>%
-       ggplot(aes(y = Y, x = X)) + 
-       xlim(-10,10) +
-       annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill=courtcolor) +
-       annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill=courtinside) +
-       geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
-       geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
-                    lineend = 'round') +     
-       stat_density_2d(geom = "polygon", 
-                       aes(alpha = ..level..,  group = input$serve, fill = input$serve), n = 100, bins = 10) +
-       scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
-       theme_bw() +
-       coord_flip() + 
-       theme(legend.position = "top") +
-       scale_x_continuous("Depth (meters from net)", n. = 8) +
-       scale_y_continuous("Lateral position (meters from center)", n. = 8) 
-     
+             serve == input$servenum
+            
+      ) %>%
+      ggplot(aes(y = Y, x = X)) + 
+      xlim(-10,10) +
+      annotate("rect", xmin=-Inf, xmax=-5.4, ymin=-Inf, ymax=Inf, fill='#00a30e') +
+      annotate("rect", xmin=-11.89, xmax=-5.4, ymin=-5.49, ymax=5.49, fill='#057517') +
+      geom_path(data = courtTrace, aes(x = x, y = y), color = 'black', size = 1) +
+      geom_segment(aes(x= -5.4, xend= -5.4, y= -6.5, yend= 6.5), size = 2, color = 'lightgrey', 
+                   lineend = 'round') +     
+      stat_density_2d(geom = "polygon", 
+                      aes(alpha = ..level..,  group = input$serve, fill = input$serve), n = 100, bins = 10) +
+      scale_fill_manual("Serve", values = c("orange", "#f572b9")) +
+      theme_bw() +
+      coord_flip() + 
+      theme(legend.position = "top") +
+      scale_x_continuous("Depth (meters from net)", n. = 8) +
+      scale_y_continuous("Lateral position (meters from center)", n. = 8) 
+    
     
     
     
@@ -305,6 +304,7 @@ courtinside <- '#1263b0'
   })
   
   
+ 
   
   output$cluster <- renderPlot({
     
@@ -316,6 +316,11 @@ courtinside <- '#1263b0'
     plot(c)
   })
   
+  
+  getPage<-function() {
+    return(includeHTML("about.html"))
+  }
+  output$about<-renderUI({getPage()})
+
+  
 })
-
-
